@@ -166,8 +166,7 @@
               "RelativeToolTip": "Dictionary\\dict.txt",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
-              "WhenOpened": "2025-04-08T12:51:40.849Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-08T12:51:40.849Z"
             },
             {
               "$type": "Document",
@@ -179,8 +178,7 @@
               "RelativeToolTip": "Dictionary\\Dictionary.cs",
               "ViewState": "AgIAABoAAAAAAAAAAAAAABwAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-08T12:47:44.99Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-08T12:47:44.99Z"
             },
             {
               "$type": "Document",
@@ -188,9 +186,9 @@
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\MRT47\\TL_practice\\homeworks\\Dictionary\\Dictionary\\Program.cs",
               "RelativeDocumentMoniker": "Dictionary\\Program.cs",
-              "ToolTip": "C:\\MRT47\\TL_practice\\homeworks\\Dictionary\\Dictionary\\Program.cs*",
-              "RelativeToolTip": "Dictionary\\Program.cs*",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAAAA8AAAAwAAAAAAAAAA==",
+              "ToolTip": "C:\\MRT47\\TL_practice\\homeworks\\Dictionary\\Dictionary\\Program.cs",
+              "RelativeToolTip": "Dictionary\\Program.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAcwCgAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-08T12:46:31.397Z",
               "EditorCaption": ""
