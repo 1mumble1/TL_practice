@@ -26,6 +26,9 @@
 
     private static bool ConfirmOrderStatus( string product, int count, string name, string address )
     {
+        Console.WriteLine( $"Здравствуйте, {name}, вы заказали {count} {product} на адрес {address}, все верно?" );
+        Console.WriteLine( "Нажмите Enter - если все правильно, любую другую клавишу - если есть ошибки в заказе и нужно его оформить заново" );
+
         ConsoleKeyInfo confirmationInput = Console.ReadKey();
         if ( confirmationInput.Key == ConsoleKey.Enter )
         {
@@ -59,9 +62,6 @@
 
             Console.Write( "Супер! Осталось только ввести адрес доставки вашего товара: " );
             string address = GetString();
-
-            Console.WriteLine( $"Здравствуйте, {name}, вы заказали {count} {product} на адрес {address}, все верно?" );
-            Console.WriteLine( "Нажмите Enter - если все правильно, любую другую клавишу - если есть ошибки в заказе и нужно его оформить заново" );
 
             isOrderConfirmed = ConfirmOrderStatus( product, count, name, address );
         }
