@@ -7,7 +7,7 @@
         int number;
         while ( !int.TryParse( Console.ReadLine(), out number ) )
         {
-            Console.WriteLine( "Количество товара не распознано. Введите пожалуйста число, например: 12" );
+            Console.WriteLine( "Число не распознано. Введите пожалуйста число, например: 12" );
         }
         return number;
     }
