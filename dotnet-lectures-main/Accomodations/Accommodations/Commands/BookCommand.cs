@@ -23,7 +23,8 @@ public class BookCommand(IBookingService bookingService, BookingDto bookingDto) 
 
     public void Undo()
     {
-        bookingService.CancelBooking(_executedBookingDto.Id);
+        // _executedBookingDto не может быть здесь null, исправлено
+        bookingService.CancelBooking(_executedBookingDto!.Id);
         decimal cancellationPenalty = bookingService.CalculateCancellationPenaltyAmount(_executedBookingDto);
         Console.WriteLine(
             $"Booking {_executedBookingDto.Id} was canceled. Cancellation penalty: {cancellationPenalty}");

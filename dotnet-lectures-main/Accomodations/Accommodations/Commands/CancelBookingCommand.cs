@@ -13,7 +13,8 @@ public class CancelBookingCommand(IBookingService bookingService, Guid bookingId
         {
             bookingService.CancelBooking(bookingId);
             decimal cancellationPenalty = bookingService.CalculateCancellationPenaltyAmount(_canceledBooking);
-            Console.WriteLine($"Booking {_canceledBooking.Id} was canceled. Cancellation penalty: {cancellationPenalty}");
+            // добавлен вывод валюты для штрафа
+            Console.WriteLine($"Booking {_canceledBooking.Id} was canceled. Cancellation penalty: {cancellationPenalty} {_canceledBooking.Currency}");
         }
         else
         {

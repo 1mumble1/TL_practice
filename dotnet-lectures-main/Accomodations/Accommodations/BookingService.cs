@@ -23,12 +23,20 @@ public class BookingService : IBookingService
 
     public Booking Book(int userId, string categoryName, DateTime startDate, DateTime endDate, Currency currency)
     {
-        if (endDate < startDate)
+        // добавлена проверка на дату заезда раньше чем сегодняшняя дата
+        if (startDate < DateTime.UtcNow)
         {
-            throw new ArgumentException("End date cannot be earlier than start date");
+            throw new ArgumentException("Start date cannot be earlier than today's date");
         }
 
-        RoomCategory? selectedCategory = _categories.FirstOrDefault(c => c.Name == categoryName);
+        if (endDate <= startDate)
+        {
+            // дата начала бронирования не может равняться дате конца
+            throw new ArgumentException("End date cannot be earlier or equal than start date");
+        }
+
+        // для удобства добавлено приведение строк к нижнему регистру, чтобы корректно обрабатывать сравнение строк
+        RoomCategory? selectedCategory = _categories.FirstOrDefault(c => c.Name.ToLower() == categoryName.ToLower());
         if (selectedCategory == null)
         {
             throw new ArgumentException("Category not found");
@@ -82,7 +90,7 @@ public class BookingService : IBookingService
         Console.WriteLine($"Refund of {booking.Cost} {booking.Currency}");
         _bookings.Remove(booking);
         RoomCategory? category = _categories.FirstOrDefault(c => c.Name == booking.RoomCategory.Name);
-        category.AvailableRooms++;
+        category!.AvailableRooms++; // при отмене брони категория никак не может быть null, если мы нашли саму бронь
     }
 
     private static decimal CalculateDiscount(int userId)
@@ -101,11 +109,13 @@ public class BookingService : IBookingService
 
         query = query.Where(b => b.StartDate >= startDate);
 
-        query = query.Where(b => b.EndDate < endDate);
+        // дата заезда так же учитывается при фильтрации
+        query = query.Where(b => b.EndDate <= endDate);
 
         if (!string.IsNullOrEmpty(categoryName))
         {
-            query = query.Where(b => b.RoomCategory.Name == categoryName);
+            // добавлено приведение к нижнему регистру для удобства
+            query = query.Where(b => b.RoomCategory.Name.ToLower() == categoryName.ToLower());
         }
 
         return query.ToList();
@@ -118,15 +128,22 @@ public class BookingService : IBookingService
             throw new ArgumentException("Start date cannot be earlier than now date");
         }
 
-        int daysBeforeArrival = (DateTime.Now - booking.StartDate).Days;
+        // нужно вычитать из даты начала брони сегодняшнюю дату, а не наоборот
+        int daysBeforeArrival = (booking.StartDate - DateTime.Now).Days;
 
-        return 5000.0m / daysBeforeArrival;
+        // исключено деление на ноль при расчете штрафа + учитывается обменный курс
+        decimal cancellationPenaltyAmount =
+            daysBeforeArrival == 0 ?
+            5000.0m / GetCurrencyRate(booking.Currency) :
+            (5000.0m / GetCurrencyRate(booking.Currency)) / daysBeforeArrival;
+
+        return cancellationPenaltyAmount;
     }
 
     private static decimal GetCurrencyRate(Currency currency)
     {
-        decimal currencyRate = 1m;
-        currencyRate *= currency switch
+        // сокращено вычисление currencyRate
+        decimal currencyRate = currency switch
         {
             Currency.Usd => (decimal)(new Random().NextDouble() * 100) + 1,
             Currency.Cny => (decimal)(new Random().NextDouble() * 12) + 1,
@@ -139,8 +156,10 @@ public class BookingService : IBookingService
 
     private static decimal CalculateBookingCost(decimal baseRate, int days, int userId, decimal currencyRate)
     {
-        decimal cost = baseRate * days;
-        decimal totalCost = cost - cost * CalculateDiscount(userId) * currencyRate;
+        // для корректного расчета стоимочти необходимо поделить на нужный курс базовую ставку 
+        decimal cost = baseRate * days / currencyRate;
+        // скидка вычисляется независимо от валюты
+        decimal totalCost = cost - cost * CalculateDiscount(userId);
         return totalCost;
     }
 }
