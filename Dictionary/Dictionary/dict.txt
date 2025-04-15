@@ -1,5 +1,5 @@
 ﻿cat:кошка
 собака:dog
-home::дом
+home:дом
 год:year
-cat:cat
+house:дом

@@ -1,9 +1,4 @@
-﻿
-
-using System.Collections.Generic;
-using System.Transactions;
-
-namespace Dictionary;
+﻿namespace Dictionary;
 
 public class Program
 {
@@ -13,7 +8,7 @@ public class Program
         Dictionary dictionary = new();
 
         Console.WriteLine( "This console application was created as dictionary." );
-        TryInitializeDictionary( dictionary, ref filePath );
+        filePath = TryInitializeDictionary( dictionary );
 
         while ( true )
         {
@@ -51,24 +46,25 @@ public class Program
         }
     }
 
-    private static void TryInitializeDictionary( Dictionary dictionary, ref string path )
+    private static string TryInitializeDictionary( Dictionary dictionary )
     {
         Console.WriteLine( "If you want initialize dictionary, press Enter, else click any button: " );
 
         ConsoleKeyInfo userInputConfirmation = Console.ReadKey();
         if ( userInputConfirmation.Key != ConsoleKey.Enter )
         {
-            return;
+            return string.Empty;
         }
 
         Console.Write( "Enter file path: " );
-        path = GetString();
+        string path = GetString();
         dictionary.Initialize( path );
+
+        return path;
     }
 
     private static void SaveDictionary( Dictionary dictionary, ref string path )
     {
-        Console.WriteLine( "Application is closing, wait..." );
         if ( string.IsNullOrEmpty( path ) )
         {
             Console.Write( "Enter file path: " );
@@ -115,13 +111,14 @@ public class Program
 
         Console.Write( "Enter word for translating: " );
         string word = GetString();
-        if ( !dictionary.FindWord( word, out var translate ) )
+        List<string>? translations = [];
+        if ( ( translations = dictionary.FindWord( word ) ) is null )
         {
             TryAddNewWord( word, dictionary );
         }
         else
         {
-            Console.WriteLine( $"Translation: {translate}" );
+            Console.WriteLine( $"Translation: {string.Join( ", ", translations )}" );
             Console.ReadKey();
         }
     }
