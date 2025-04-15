@@ -1,6 +1,6 @@
 ﻿internal class Program
 {
-    const int DeliveryTime = 3;
+    const int DeliveryTimeInDays = 3;
 
     private static int GetInteger()
     {
