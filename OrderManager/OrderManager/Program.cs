@@ -24,12 +24,12 @@
         return str;
     }
 
-    private static bool CheckOrderStatus( string product, int count, string name, string address )
+    private static bool ConfirmOrderStatus( string product, int count, string name, string address )
     {
         ConsoleKeyInfo confirmationInput = Console.ReadKey();
         if ( confirmationInput.Key == ConsoleKey.Enter )
         {
-            DateOnly deliveryDate = DateOnly.FromDateTime( DateTime.UtcNow ).AddDays( DeliveryTime );
+            DateOnly deliveryDate = DateOnly.FromDateTime( DateTime.UtcNow ).AddDays( DeliveryTimeInDays );
             Console.WriteLine( $"{name}! Ваш заказ '{product}' в количестве {count} оформлен! Ожидайте доставку по адресу {address} к {deliveryDate}" );
             return true;
         }
@@ -63,7 +63,7 @@
             Console.WriteLine( $"Здравствуйте, {name}, вы заказали {count} {product} на адрес {address}, все верно?" );
             Console.WriteLine( "Нажмите Enter - если все правильно, любую другую клавишу - если есть ошибки в заказе и нужно его оформить заново" );
 
-            isOrderConfirmed = CheckOrderStatus( product, count, name, address );
+            isOrderConfirmed = ConfirmOrderStatus( product, count, name, address );
         }
     }
 }
