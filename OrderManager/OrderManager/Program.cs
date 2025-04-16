@@ -30,7 +30,7 @@ static bool ConfirmOrderStatus( string product, int count, string name, string a
     ConsoleKeyInfo confirmationInput = Console.ReadKey();
     if ( confirmationInput.Key == ConsoleKey.Enter )
     {
-        DateOnly deliveryDate = DateOnly.FromDateTime( DateTime.UtcNow ).AddDays( DeliveryTimeInDays );
+        DateOnly deliveryDate = DateOnly.FromDateTime( DateTime.Now ).AddDays( DeliveryTimeInDays );
         Console.WriteLine( $"{name}! Ваш заказ '{product}' в количестве {count} оформлен! Ожидайте доставку по адресу {address} к {deliveryDate}" );
         return true;
     }
