@@ -23,7 +23,17 @@ public class Program
             {
                 case ConsoleKey.D1:
                     {
-                        GetTranslation( dictionary );
+                        (List<string>? translations, string word) = GetTranslation( dictionary );
+
+                        if ( translations is null )
+                        {
+                            TryAddNewWord( word, dictionary );
+                        }
+                        else
+                        {
+                            Console.WriteLine( $"Translation: {string.Join( ", ", translations )}" );
+                            Console.ReadKey();
+                        }
                         break;
                     }
                 case ConsoleKey.D2:
@@ -100,27 +110,17 @@ public class Program
         Console.ReadKey();
     }
 
-    private static void GetTranslation( Dictionary dictionary )
+    private static (List<string>?, string) GetTranslation( Dictionary dictionary )
     {
-        if ( dictionary.IsEmpty() )
-        {
-            Console.WriteLine( "Dictionary is empty! Add words to get translations" );
-            Console.ReadKey();
-            return;
-        }
-
         Console.Write( "Enter word for translating: " );
         string word = GetString();
-        List<string>? translations = [];
-        if ( ( translations = dictionary.FindWord( word ) ) is null )
+
+        if ( dictionary.IsEmpty() )
         {
-            TryAddNewWord( word, dictionary );
+            return (null, word);
         }
-        else
-        {
-            Console.WriteLine( $"Translation: {string.Join( ", ", translations )}" );
-            Console.ReadKey();
-        }
+
+        return (dictionary.FindWord( word ), word);
     }
 
     private static void TryAddNewWord( string word, Dictionary dictionary )
