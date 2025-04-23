@@ -22,36 +22,45 @@ public class Program
             switch ( userInput.Key )
             {
                 case ConsoleKey.D1:
-                    {
-                        (List<string>? translations, string word) = GetTranslation( dictionary );
+                    Console.Write( "Enter word for translating: " );
+                    string word = GetString();
+                    List<string>? translations = GetTranslation( dictionary, word );
 
-                        if ( translations is null )
+                    if ( translations is null )
+                    {
+                        Console.WriteLine( $"Word '{word}' not found in dictionary. Do you want to add this word?" );
+                        Console.WriteLine( "Press Enter to confirm, any other button to discard" );
+                        ConsoleKeyInfo userInputConfirmation = Console.ReadKey();
+                        if ( userInputConfirmation.Key != ConsoleKey.Enter )
                         {
-                            TryAddNewWord( word, dictionary );
+                            break;
                         }
-                        else
-                        {
-                            Console.WriteLine( $"Translation: {string.Join( ", ", translations )}" );
-                            Console.ReadKey();
-                        }
-                        break;
+
+                        AddNewTranslationForWord( word, dictionary );
                     }
-                case ConsoleKey.D2:
+                    else
                     {
-                        AddNewTranslation( dictionary );
-                        break;
-                    }
-                case ConsoleKey.D0:
-                    {
-                        SaveDictionary( dictionary, ref filePath );
-                        return;
-                    }
-                default:
-                    {
-                        Console.WriteLine( "Invalid input" );
+                        Console.WriteLine( $"Translation: {string.Join( ", ", translations )}" );
                         Console.ReadKey();
-                        break;
                     }
+
+                    break;
+
+                case ConsoleKey.D2:
+                    AddNewTranslation( dictionary );
+
+                    break;
+
+                case ConsoleKey.D0:
+                    SaveDictionary( dictionary, ref filePath );
+
+                    return;
+
+                default:
+                    Console.WriteLine( "Invalid input" );
+                    Console.ReadKey();
+
+                    break;
             }
         }
     }
@@ -110,30 +119,18 @@ public class Program
         Console.ReadKey();
     }
 
-    private static (List<string>?, string) GetTranslation( Dictionary dictionary )
+    private static List<string>? GetTranslation( Dictionary dictionary, string word )
     {
-        Console.Write( "Enter word for translating: " );
-        string word = GetString();
-
         if ( dictionary.IsEmpty() )
         {
-            return (null, word);
+            return null;
         }
 
-        return (dictionary.FindWord( word ), word);
+        return dictionary.FindWord( word );
     }
 
-    private static void TryAddNewWord( string word, Dictionary dictionary )
+    private static void AddNewTranslationForWord( string word, Dictionary dictionary )
     {
-        Console.WriteLine( $"Word '{word}' not found in dictionary. Do you want to add this word?" );
-        Console.WriteLine( "Press Enter to confirm, any other button to discard" );
-        ConsoleKeyInfo userInputConfirmation = Console.ReadKey();
-        Console.WriteLine();
-        if ( userInputConfirmation.Key != ConsoleKey.Enter )
-        {
-            return;
-        }
-
         Console.Write( $"Type translation of '{word}': " );
         string translation = GetString();
 

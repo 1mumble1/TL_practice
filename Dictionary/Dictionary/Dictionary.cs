@@ -47,9 +47,10 @@ public class Dictionary
 
         if ( _dictionary.ContainsValue( word ) )
         {
-            IEnumerable<KeyValuePair<string, string>> pairs = _dictionary.Where( w => w.Value == word );
-            List<string> translates = pairs.Select( w => w.Key ).ToList();
-
+            List<string> translates = _dictionary
+                                        .Where( w => w.Value == word )
+                                        .Select( w => w.Key )
+                                        .ToList();
             return translates;
         }
 
