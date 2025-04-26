@@ -3,12 +3,100 @@
   "WorkspaceRootPath": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|c:\\mrt47\\tl_practice\\homeworks\\fighters\\fighters\\ifighter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|solutionrelative:fighters\\ifighter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|c:\\mrt47\\tl_practice\\homeworks\\fighters\\fighters\\models\\armors\\breastplate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|solutionrelative:fighters\\models\\armors\\breastplate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|c:\\mrt47\\tl_practice\\homeworks\\fighters\\fighters\\models\\armors\\greaves.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|solutionrelative:fighters\\models\\armors\\greaves.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|c:\\mrt47\\tl_practice\\homeworks\\fighters\\fighters\\models\\armors\\helmet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|solutionrelative:fighters\\models\\armors\\helmet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|c:\\mrt47\\tl_practice\\homeworks\\fighters\\fighters\\models\\armors\\noarmor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|solutionrelative:fighters\\models\\armors\\noarmor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|c:\\mrt47\\tl_practice\\homeworks\\fighters\\fighters\\models\\armors\\iarmor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|solutionrelative:fighters\\models\\armors\\iarmor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|c:\\mrt47\\tl_practice\\homeworks\\fighters\\fighters\\models\\classes\\assassin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|solutionrelative:fighters\\models\\classes\\assassin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|c:\\mrt47\\tl_practice\\homeworks\\fighters\\fighters\\models\\classes\\iclass.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|solutionrelative:fighters\\models\\classes\\iclass.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|c:\\mrt47\\tl_practice\\homeworks\\fighters\\fighters\\models\\classes\\knight.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|solutionrelative:fighters\\models\\classes\\knight.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|c:\\mrt47\\tl_practice\\homeworks\\fighters\\fighters\\models\\classes\\warrior.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|solutionrelative:fighters\\models\\classes\\warrior.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|c:\\mrt47\\tl_practice\\homeworks\\fighters\\fighters\\models\\fighters\\fighter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|solutionrelative:fighters\\models\\fighters\\fighter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|c:\\mrt47\\tl_practice\\homeworks\\fighters\\fighters\\models\\fighters\\ifighter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|solutionrelative:fighters\\models\\fighters\\ifighter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|c:\\mrt47\\tl_practice\\homeworks\\fighters\\fighters\\models\\races\\elf.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|solutionrelative:fighters\\models\\races\\elf.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|c:\\mrt47\\tl_practice\\homeworks\\fighters\\fighters\\models\\races\\human.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|solutionrelative:fighters\\models\\races\\human.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|c:\\mrt47\\tl_practice\\homeworks\\fighters\\fighters\\models\\races\\irace.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|solutionrelative:fighters\\models\\races\\irace.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|c:\\mrt47\\tl_practice\\homeworks\\fighters\\fighters\\models\\races\\witcher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|solutionrelative:fighters\\models\\races\\witcher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|c:\\mrt47\\tl_practice\\homeworks\\fighters\\fighters\\models\\weapons\\hammer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|solutionrelative:fighters\\models\\weapons\\hammer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|c:\\mrt47\\tl_practice\\homeworks\\fighters\\fighters\\models\\weapons\\iweapon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|solutionrelative:fighters\\models\\weapons\\iweapon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|c:\\mrt47\\tl_practice\\homeworks\\fighters\\fighters\\models\\weapons\\knife.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|solutionrelative:fighters\\models\\weapons\\knife.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|c:\\mrt47\\tl_practice\\homeworks\\fighters\\fighters\\models\\weapons\\noweapon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|solutionrelative:fighters\\models\\weapons\\noweapon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|c:\\mrt47\\tl_practice\\homeworks\\fighters\\fighters\\models\\weapons\\sword.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|solutionrelative:fighters\\models\\weapons\\sword.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|c:\\mrt47\\tl_practice\\homeworks\\fighters\\fighters\\utils\\commandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|solutionrelative:fighters\\utils\\commandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|c:\\mrt47\\tl_practice\\homeworks\\fighters\\fighters\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|solutionrelative:fighters\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|c:\\mrt47\\tl_practice\\homeworks\\fighters\\fighters\\utils\\gamemaster.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|solutionrelative:fighters\\utils\\gamemaster.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|c:\\mrt47\\tl_practice\\homeworks\\fighters\\fighters\\utils\\fighterscreator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|solutionrelative:fighters\\utils\\fighterscreator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -159,27 +247,313 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "IFighter.cs",
-              "DocumentMoniker": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\IFighter.cs",
-              "RelativeDocumentMoniker": "Fighters\\IFighter.cs",
-              "ToolTip": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\IFighter.cs",
-              "RelativeToolTip": "Fighters\\IFighter.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
+              "Title": "Breastplate.cs",
+              "DocumentMoniker": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Models\\Armors\\Breastplate.cs",
+              "RelativeDocumentMoniker": "Fighters\\Models\\Armors\\Breastplate.cs",
+              "ToolTip": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Models\\Armors\\Breastplate.cs",
+              "RelativeToolTip": "Fighters\\Models\\Armors\\Breastplate.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-12T12:56:43.391Z",
+              "WhenOpened": "2025-04-26T05:43:09.688Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "Greaves.cs",
+              "DocumentMoniker": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Models\\Armors\\Greaves.cs",
+              "RelativeDocumentMoniker": "Fighters\\Models\\Armors\\Greaves.cs",
+              "ToolTip": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Models\\Armors\\Greaves.cs",
+              "RelativeToolTip": "Fighters\\Models\\Armors\\Greaves.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-26T05:43:08.992Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Helmet.cs",
+              "DocumentMoniker": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Models\\Armors\\Helmet.cs",
+              "RelativeDocumentMoniker": "Fighters\\Models\\Armors\\Helmet.cs",
+              "ToolTip": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Models\\Armors\\Helmet.cs",
+              "RelativeToolTip": "Fighters\\Models\\Armors\\Helmet.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-26T05:43:08.05Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "NoArmor.cs",
+              "DocumentMoniker": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Models\\Armors\\NoArmor.cs",
+              "RelativeDocumentMoniker": "Fighters\\Models\\Armors\\NoArmor.cs",
+              "ToolTip": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Models\\Armors\\NoArmor.cs",
+              "RelativeToolTip": "Fighters\\Models\\Armors\\NoArmor.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-26T05:43:06.936Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "IArmor.cs",
+              "DocumentMoniker": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Models\\Armors\\IArmor.cs",
+              "RelativeDocumentMoniker": "Fighters\\Models\\Armors\\IArmor.cs",
+              "ToolTip": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Models\\Armors\\IArmor.cs",
+              "RelativeToolTip": "Fighters\\Models\\Armors\\IArmor.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-26T05:43:06.001Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Assassin.cs",
+              "DocumentMoniker": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Models\\Classes\\Assassin.cs",
+              "RelativeDocumentMoniker": "Fighters\\Models\\Classes\\Assassin.cs",
+              "ToolTip": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Models\\Classes\\Assassin.cs",
+              "RelativeToolTip": "Fighters\\Models\\Classes\\Assassin.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-26T05:43:03.91Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "IClass.cs",
+              "DocumentMoniker": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Models\\Classes\\IClass.cs",
+              "RelativeDocumentMoniker": "Fighters\\Models\\Classes\\IClass.cs",
+              "ToolTip": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Models\\Classes\\IClass.cs",
+              "RelativeToolTip": "Fighters\\Models\\Classes\\IClass.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-26T05:43:03.248Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Knight.cs",
+              "DocumentMoniker": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Models\\Classes\\Knight.cs",
+              "RelativeDocumentMoniker": "Fighters\\Models\\Classes\\Knight.cs",
+              "ToolTip": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Models\\Classes\\Knight.cs",
+              "RelativeToolTip": "Fighters\\Models\\Classes\\Knight.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-26T05:43:02.451Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Warrior.cs",
+              "DocumentMoniker": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Models\\Classes\\Warrior.cs",
+              "RelativeDocumentMoniker": "Fighters\\Models\\Classes\\Warrior.cs",
+              "ToolTip": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Models\\Classes\\Warrior.cs",
+              "RelativeToolTip": "Fighters\\Models\\Classes\\Warrior.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-26T05:43:00.549Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Fighter.cs",
+              "DocumentMoniker": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Models\\Fighters\\Fighter.cs",
+              "RelativeDocumentMoniker": "Fighters\\Models\\Fighters\\Fighter.cs",
+              "ToolTip": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Models\\Fighters\\Fighter.cs",
+              "RelativeToolTip": "Fighters\\Models\\Fighters\\Fighter.cs",
+              "ViewState": "AgIAADwAAAAAAAAAAAAiwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-26T05:42:53.562Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "IFighter.cs",
+              "DocumentMoniker": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Models\\Fighters\\IFighter.cs",
+              "RelativeDocumentMoniker": "Fighters\\Models\\Fighters\\IFighter.cs",
+              "ToolTip": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Models\\Fighters\\IFighter.cs",
+              "RelativeToolTip": "Fighters\\Models\\Fighters\\IFighter.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAowAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-26T05:42:48.755Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Elf.cs",
+              "DocumentMoniker": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Models\\Races\\Elf.cs",
+              "RelativeDocumentMoniker": "Fighters\\Models\\Races\\Elf.cs",
+              "ToolTip": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Models\\Races\\Elf.cs",
+              "RelativeToolTip": "Fighters\\Models\\Races\\Elf.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-26T05:42:45.824Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Human.cs",
+              "DocumentMoniker": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Models\\Races\\Human.cs",
+              "RelativeDocumentMoniker": "Fighters\\Models\\Races\\Human.cs",
+              "ToolTip": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Models\\Races\\Human.cs",
+              "RelativeToolTip": "Fighters\\Models\\Races\\Human.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-26T05:42:44.521Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "IRace.cs",
+              "DocumentMoniker": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Models\\Races\\IRace.cs",
+              "RelativeDocumentMoniker": "Fighters\\Models\\Races\\IRace.cs",
+              "ToolTip": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Models\\Races\\IRace.cs",
+              "RelativeToolTip": "Fighters\\Models\\Races\\IRace.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-26T05:42:43.794Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Witcher.cs",
+              "DocumentMoniker": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Models\\Races\\Witcher.cs",
+              "RelativeDocumentMoniker": "Fighters\\Models\\Races\\Witcher.cs",
+              "ToolTip": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Models\\Races\\Witcher.cs",
+              "RelativeToolTip": "Fighters\\Models\\Races\\Witcher.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-26T05:42:42.168Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Hammer.cs",
+              "DocumentMoniker": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Models\\Weapons\\Hammer.cs",
+              "RelativeDocumentMoniker": "Fighters\\Models\\Weapons\\Hammer.cs",
+              "ToolTip": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Models\\Weapons\\Hammer.cs",
+              "RelativeToolTip": "Fighters\\Models\\Weapons\\Hammer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-26T05:42:39.325Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "IWeapon.cs",
+              "DocumentMoniker": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Models\\Weapons\\IWeapon.cs",
+              "RelativeDocumentMoniker": "Fighters\\Models\\Weapons\\IWeapon.cs",
+              "ToolTip": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Models\\Weapons\\IWeapon.cs",
+              "RelativeToolTip": "Fighters\\Models\\Weapons\\IWeapon.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-26T05:42:38.14Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Knife.cs",
+              "DocumentMoniker": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Models\\Weapons\\Knife.cs",
+              "RelativeDocumentMoniker": "Fighters\\Models\\Weapons\\Knife.cs",
+              "ToolTip": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Models\\Weapons\\Knife.cs",
+              "RelativeToolTip": "Fighters\\Models\\Weapons\\Knife.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-26T05:42:37.198Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "NoWeapon.cs",
+              "DocumentMoniker": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Models\\Weapons\\NoWeapon.cs",
+              "RelativeDocumentMoniker": "Fighters\\Models\\Weapons\\NoWeapon.cs",
+              "ToolTip": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Models\\Weapons\\NoWeapon.cs",
+              "RelativeToolTip": "Fighters\\Models\\Weapons\\NoWeapon.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-26T05:42:34.5Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "Sword.cs",
+              "DocumentMoniker": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Models\\Weapons\\Sword.cs",
+              "RelativeDocumentMoniker": "Fighters\\Models\\Weapons\\Sword.cs",
+              "ToolTip": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Models\\Weapons\\Sword.cs",
+              "RelativeToolTip": "Fighters\\Models\\Weapons\\Sword.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-26T05:42:30.316Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "CommandHandler.cs",
+              "DocumentMoniker": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Utils\\CommandHandler.cs",
+              "RelativeDocumentMoniker": "Fighters\\Utils\\CommandHandler.cs",
+              "ToolTip": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Utils\\CommandHandler.cs",
+              "RelativeToolTip": "Fighters\\Utils\\CommandHandler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-26T05:42:24.445Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "FightersCreator.cs",
+              "DocumentMoniker": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Utils\\FightersCreator.cs",
+              "RelativeDocumentMoniker": "Fighters\\Utils\\FightersCreator.cs",
+              "ToolTip": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Utils\\FightersCreator.cs",
+              "RelativeToolTip": "Fighters\\Utils\\FightersCreator.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-26T05:42:17.702Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "GameMaster.cs",
+              "DocumentMoniker": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Utils\\GameMaster.cs",
+              "RelativeDocumentMoniker": "Fighters\\Utils\\GameMaster.cs",
+              "ToolTip": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Utils\\GameMaster.cs",
+              "RelativeToolTip": "Fighters\\Utils\\GameMaster.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-26T05:42:13.776Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Program.cs",
               "RelativeDocumentMoniker": "Fighters\\Program.cs",
               "ToolTip": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Program.cs",
               "RelativeToolTip": "Fighters\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-12T12:52:05.426Z",
+              "WhenOpened": "2025-04-26T05:42:02.746Z",
               "EditorCaption": ""
             }
           ]
