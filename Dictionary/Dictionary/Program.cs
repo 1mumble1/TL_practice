@@ -22,27 +22,7 @@ public class Program
             switch ( userInput.Key )
             {
                 case ConsoleKey.D1:
-                    Console.Write( "Enter word for translating: " );
-                    string word = GetString();
-                    List<string>? translations = GetTranslation( dictionary, word );
-
-                    if ( translations is null )
-                    {
-                        Console.WriteLine( $"Word '{word}' not found in dictionary. Do you want to add this word?" );
-                        Console.WriteLine( "Press Enter to confirm, any other button to discard" );
-                        ConsoleKeyInfo userInputConfirmation = Console.ReadKey();
-                        if ( userInputConfirmation.Key != ConsoleKey.Enter )
-                        {
-                            break;
-                        }
-
-                        AddNewTranslationForWord( word, dictionary );
-                    }
-                    else
-                    {
-                        Console.WriteLine( $"Translation: {string.Join( ", ", translations )}" );
-                        Console.ReadKey();
-                    }
+                    Translate( dictionary );
 
                     break;
 
@@ -52,7 +32,8 @@ public class Program
                     break;
 
                 case ConsoleKey.D0:
-                    SaveDictionary( dictionary, ref filePath );
+                    filePath = SaveDictionary( dictionary );
+                    Console.WriteLine( $"Dictionary successfully saved! Goodbye" );
 
                     return;
 
@@ -62,6 +43,31 @@ public class Program
 
                     break;
             }
+        }
+    }
+
+    private static void Translate( Dictionary dictionary )
+    {
+        Console.Write( "Enter word for translating: " );
+        string word = GetString();
+        List<string>? translations = GetTranslation( dictionary, word );
+
+        if ( translations is null )
+        {
+            Console.WriteLine( $"Word '{word}' not found in dictionary. Do you want to add this word?" );
+            Console.WriteLine( "Press Enter to confirm, any other button to discard" );
+            ConsoleKeyInfo userInputConfirmation = Console.ReadKey();
+            if ( userInputConfirmation.Key != ConsoleKey.Enter )
+            {
+                return;
+            }
+
+            AddNewTranslationForWord( word, dictionary );
+        }
+        else
+        {
+            Console.WriteLine( $"Translation: {string.Join( ", ", translations )}" );
+            Console.ReadKey();
         }
     }
 
@@ -82,17 +88,13 @@ public class Program
         return path;
     }
 
-    private static void SaveDictionary( Dictionary dictionary, ref string path )
+    private static string SaveDictionary( Dictionary dictionary )
     {
-        if ( string.IsNullOrEmpty( path ) )
-        {
-            Console.Write( "Enter file path: " );
-            path = GetString();
-        }
+        Console.Write( "Enter file path: " );
+        string path = GetString();
 
         dictionary.SaveToFile( path );
-
-        Console.WriteLine( "Changes saved successfully! Goodbye" );
+        return path;
     }
 
     private static void AddNewTranslation( Dictionary dictionary )
