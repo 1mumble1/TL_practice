@@ -1,4 +1,3 @@
-using System.Globalization;
 using Accommodations.Commands;
 using Accommodations.Dto;
 
@@ -30,12 +29,8 @@ public static class AccommodationsProcessor
             {
                 ProcessCommand(input);
             }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine($"Error: {ex.Message}");
-            }
-            // добавлен перехват еще одного типа исключения
-            catch (IndexOutOfRangeException ex)
+            // исправлен catch, теперь будут абсолютно все исключения перехватываться
+            catch (Exception ex)
             {
                 Console.WriteLine($"Error: {ex.Message}");
             }

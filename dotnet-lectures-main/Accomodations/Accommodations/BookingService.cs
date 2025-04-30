@@ -31,11 +31,11 @@ public class BookingService : IBookingService
 
         if (endDate <= startDate)
         {
-            // дата начала бронирования не может равняться дате конца
+            // добавлена проверка на равно (изначально была только на меньше)
             throw new ArgumentException("End date cannot be earlier or equal than start date");
         }
 
-        // для удобства добавлено приведение строк к нижнему регистру, чтобы корректно обрабатывать сравнение строк
+        // для предотвращения ошибок добавлено приведение строк к нижнему регистру, чтобы корректно обрабатывать сравнение строк
         RoomCategory? selectedCategory = _categories.FirstOrDefault(c => c.Name.ToLower() == categoryName.ToLower());
         if (selectedCategory == null)
         {
