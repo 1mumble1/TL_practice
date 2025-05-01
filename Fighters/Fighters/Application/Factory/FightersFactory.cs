@@ -1,14 +1,14 @@
-﻿using Fighters.Models.Fighters;
-using Fighters.Models.Armors;
+﻿using Fighters.Models.Armors;
+using Fighters.Models.Classes;
+using Fighters.Models.Fighters;
 using Fighters.Models.Races;
 using Fighters.Models.Weapons;
-using Fighters.Models.Classes;
 
-namespace Fighters.Utils;
+namespace Fighters.Application.Factory;
 
-public class FightersCreator
+public class FightersFactory : AbstractFactory
 {
-    public static IFighter CreateFighter()
+    public override IFighter CreateFighter()
     {
         Console.WriteLine( "Введите имя для бойца:" );
         string? name;
@@ -24,12 +24,15 @@ public class FightersCreator
 
         IFighter newFighter = new Fighter( name, race, fighterClass, weapon, armor );
 
-        Console.WriteLine( $"Боец '{name}' был успешно добавлен!" );
-        Console.WriteLine( "Характеристики:" );
-        Console.WriteLine( $"     здоровье: {newFighter.MaxHealth}" );
-        Console.WriteLine( $"     броня: {newFighter.MaxArmor}" );
-        Console.WriteLine( $"     урон: {newFighter.Damage}" );
-        Console.WriteLine( $"     скилл: {newFighter.Skill}" );
+        Console.WriteLine(
+$@"Боец '{name}' был успешно добавлен!
+Характеристики:
+    здоровье: {newFighter.MaxHealth}
+    броня: {newFighter.MaxArmor}
+    урон: {newFighter.Damage}
+    скилл: {newFighter.Skill}"
+            );
+
         Console.WriteLine();
 
         return newFighter;
@@ -37,10 +40,12 @@ public class FightersCreator
 
     private static IRace ChooseRace()
     {
-        Console.WriteLine( "Выберите расу из списка:\n" +
-            "1 - Человек\n" +
-            "2 - Эльф\n" +
-            "3 - Ведьмак" );
+        Console.WriteLine(
+@"Выберите расу из списка:
+    1 - Человек
+    2 - Эльф
+    3 - Ведьмак"
+            );
 
         return GetOption( 1, 3 ) switch
         {
@@ -53,10 +58,12 @@ public class FightersCreator
 
     private static IClass ChooseClass()
     {
-        Console.WriteLine( "Выберите класс из списка:\n" +
-            "1 - Воин\n" +
-            "2 - Рыцарь\n" +
-            "3 - Убийца" );
+        Console.WriteLine(
+@"Выберите класс из списка:
+    1 - Воин
+    2 - Рыцарь
+    3 - Убийца"
+            );
 
         return GetOption( 1, 3 ) switch
         {
@@ -69,11 +76,13 @@ public class FightersCreator
 
     private static IWeapon ChooseWeapon()
     {
-        Console.WriteLine( "Выберите оружие из списка:\n" +
-            "1 - Меч\n" +
-            "2 - Нож\n" +
-            "3 - Молот\n" +
-            "4 - Без оружия" );
+        Console.WriteLine(
+@"Выберите оружие из списка:
+    1 - Меч
+    2 - Нож
+    3 - Молот
+    4 - Без оружия"
+            );
 
         return GetOption( 1, 4 ) switch
         {
@@ -87,11 +96,13 @@ public class FightersCreator
 
     private static IArmor ChooseArmor()
     {
-        Console.WriteLine( "Выберите броню из списка:\n" +
-            "1 - Нагрудник\n" +
-            "2 - Поножи\n" +
-            "3 - Шлем\n" +
-            "4 - Без брони" );
+        Console.WriteLine(
+@"Выберите броню из списка:
+    1 - Нагрудник
+    2 - Поножи
+    3 - Шлем
+    4 - Без брони"
+            );
 
         return GetOption( 1, 4 ) switch
         {

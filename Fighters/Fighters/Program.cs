@@ -1,5 +1,5 @@
-﻿using Fighters.Models.Fighters;
-using Fighters.Utils;
+﻿using Fighters.Application;
+using Fighters.Models.Fighters;
 
 namespace Fighters;
 
@@ -9,9 +9,9 @@ public class Program
     {
         Console.WriteLine( "Добро пожаловать в игру Fighters!" );
 
-        CommandHandler handler = new();
+        FightersReader reader = new();
         GameMaster master = new();
-        IFighter winner = master.PlayAndGetWinner( handler.GetFighters() );
+        IFighter winner = master.PlayAndGetWinner( reader.ReadFighters() );
         Console.WriteLine( $"Выигрывает {winner.Name}!" );
     }
 }
