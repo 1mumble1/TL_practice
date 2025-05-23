@@ -12,6 +12,7 @@ public class RoomType
     public int MaxPersonCount { get; private set; }
     public string Services { get; private set; }
     public string Amenties { get; private set; }
+    public int AvailableRooms { get; private set; }
     public List<Reservation> Reservations { get; private set; } = [];
 
     public RoomType(
