@@ -6,9 +6,9 @@ using Fighters.Models.Weapons;
 
 namespace Fighters.Application.Factory;
 
-public class FightersFactory : AbstractFactory
+public class FightersFactory : IFactory
 {
-    public override IFighter CreateFighter()
+    public IFighter CreateFighter()
     {
         Console.WriteLine( "Введите имя для бойца:" );
         string? name;
