@@ -1,5 +1,0 @@
-﻿cat:кошка
-собака:dog
-home:дом
-год:year
-house:дом
