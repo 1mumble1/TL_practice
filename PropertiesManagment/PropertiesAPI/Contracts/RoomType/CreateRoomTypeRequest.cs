@@ -8,5 +8,6 @@ public class CreateRoomTypeRequest
     public int MinPersonCount { get; set; }
     public int MaxPersonCount { get; set; }
     public string Services { get; set; }
-    public string Amenties { get; set; }
+    public string Amenities { get; set; }
+    public int AvailableRooms { get; set; }
 }

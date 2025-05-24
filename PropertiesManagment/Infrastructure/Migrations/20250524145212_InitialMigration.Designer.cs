@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(PropertiesDbContext))]
-    [Migration("20250514083249_InitialMigration")]
+    [Migration("20250524145212_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -122,10 +122,13 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Amenties")
+                    b.Property<string>("Amenities")
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
+
+                    b.Property<int>("AvailableRooms")
+                        .HasColumnType("int");
 
                     b.Property<string>("Currency")
                         .IsRequired()

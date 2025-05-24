@@ -1,7 +1,6 @@
 ﻿using Domain.Abstractions.Repositories;
 using Domain.Abstractions.Services;
 using Domain.Entities;
-using Infrastructure.Repositories;
 
 namespace Application.Services;
 
@@ -26,19 +25,28 @@ public class RoomTypesService : IRoomTypesService
     }
 
     public async Task<Guid> CreateRoomType(
-            Guid propertyId,
-            string name,
-            decimal dailyPrice,
-            string currency,
-            int minPersonCount,
-            int maxPersonCount,
-            string services,
-            string amenities
-        )
+        Guid propertyId,
+        string name,
+        decimal dailyPrice,
+        string currency,
+        int minPersonCount,
+        int maxPersonCount,
+        string services,
+        string amenities,
+        int availableRooms )
     {
         try
         {
-            RoomType roomType = new( propertyId, name, dailyPrice, currency, minPersonCount, maxPersonCount, services, amenities );
+            RoomType roomType = new(
+                propertyId,
+                name,
+                dailyPrice,
+                currency,
+                minPersonCount,
+                maxPersonCount,
+                services,
+                amenities,
+                availableRooms );
             var result = await _roomTypesRepository.Create( roomType );
             return result;
         }
@@ -49,20 +57,30 @@ public class RoomTypesService : IRoomTypesService
     }
 
     public async Task<Guid> UpdateRoomType(
-            Guid id,
-            Guid propertyId,
-            string name,
-            decimal dailyPrice,
-            string currency,
-            int minPersonCount,
-            int maxPersonCount,
-            string services,
-            string amenities
-        )
+        Guid id,
+        Guid propertyId,
+        string name,
+        decimal dailyPrice,
+        string currency,
+        int minPersonCount,
+        int maxPersonCount,
+        string services,
+        string amenities,
+        int availableRooms )
     {
         try
         {
-            RoomType roomType = new( id, propertyId, name, dailyPrice, currency, minPersonCount, maxPersonCount, services, amenities );
+            RoomType roomType = new(
+                id,
+                propertyId,
+                name,
+                dailyPrice,
+                currency,
+                minPersonCount,
+                maxPersonCount,
+                services,
+                amenities,
+                availableRooms );
             var result = await _roomTypesRepository.Update( roomType );
             return result;
         }

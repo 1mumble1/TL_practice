@@ -119,10 +119,13 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Amenties")
+                    b.Property<string>("Amenities")
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
+
+                    b.Property<int>("AvailableRooms")
+                        .HasColumnType("int");
 
                     b.Property<string>("Currency")
                         .IsRequired()

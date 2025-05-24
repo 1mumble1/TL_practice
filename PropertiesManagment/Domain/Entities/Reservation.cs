@@ -17,21 +17,21 @@ public class Reservation
     public string Currency { get; }
 
     public Reservation(
-            Guid propertyId,
-            Guid roomTypeId,
-            DateOnly arrivalDate,
-            DateOnly departureDate,
-            TimeOnly arrivalTime,
-            TimeOnly departureTime,
-            string guestName,
-            string guestPhoneNumber,
-            string currency
-        )
+        Guid propertyId,
+        Guid roomTypeId,
+        DateOnly arrivalDate,
+        DateOnly departureDate,
+        TimeOnly arrivalTime,
+        TimeOnly departureTime,
+        string guestName,
+        string guestPhoneNumber,
+        string currency,
+        decimal total )
     {
         CheckDatesValidity( arrivalDate, departureDate, arrivalTime, departureTime );
-        CheckIfNull( guestName );
-        CheckIfNull( guestPhoneNumber );
-        CheckIfNull( currency );
+        CheckIfNull( guestName, nameof( guestName ) );
+        CheckIfNull( guestPhoneNumber, nameof( guestPhoneNumber ) );
+        CheckIfNull( currency, nameof( currency ) );
 
         Id = Guid.NewGuid();
         PropertyId = propertyId;
@@ -43,17 +43,23 @@ public class Reservation
         GuestName = guestName;
         GuestPhoneNumber = guestPhoneNumber;
         Currency = currency;
+
+        Total = total;
     }
 
-    private void CheckIfNull( string value )
+    private void CheckIfNull( string value, string nameOfValue )
     {
         if ( string.IsNullOrWhiteSpace( value ) )
         {
-            throw new ArgumentNullException( $"{nameof( value )} cannot be null or empty." );
+            throw new ArgumentNullException( $"{nameOfValue} cannot be null or empty." );
         }
     }
 
-    private void CheckDatesValidity( DateOnly arrivalDate, DateOnly departureDate, TimeOnly arrivalTime, TimeOnly departureTime )
+    private void CheckDatesValidity(
+        DateOnly arrivalDate,
+        DateOnly departureDate,
+        TimeOnly arrivalTime,
+        TimeOnly departureTime )
     {
         DateTime arrival = arrivalDate.ToDateTime( arrivalTime );
         DateTime departure = departureDate.ToDateTime( departureTime );

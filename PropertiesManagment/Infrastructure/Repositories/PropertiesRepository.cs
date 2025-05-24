@@ -35,19 +35,6 @@ public class PropertiesRepository : IPropertiesRepository
 
     public async Task<Guid> Update( Property property )
     {
-        //Property? existingProperty = await GetById( property.Id );
-
-        //if ( existingProperty is null )
-        //{
-        //    throw new InvalidOperationException( $"Property with id {property.Id} does not exist" );
-        //}
-
-        //existingProperty.SetName( property.Name );
-        //existingProperty.SetCountry( property.Country );
-        //existingProperty.SetCity( property.City );
-        //existingProperty.SetAddress( property.Address );
-        //existingProperty.SetLatitude( property.Latitude );
-        //existingProperty.SetLongitude( property.Longitude );
         _dbContext.Properties.Update( property );
         await _dbContext.SaveChangesAsync();
 

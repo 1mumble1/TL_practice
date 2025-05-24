@@ -10,7 +10,8 @@ public class RoomTypeResponse
     public int MinPersonCount { get; set; }
     public int MaxPersonCount { get; set; }
     public string Services { get; set; }
-    public string Amenties { get; set; }
+    public string Amenities { get; set; }
+    public int AvailableRooms { get; set; }
 
     public RoomTypeResponse(
             Guid id,
@@ -21,7 +22,8 @@ public class RoomTypeResponse
             int minPersonCount,
             int maxPersonCount,
             string services,
-            string amenties
+            string amenities,
+            int availableRooms
         )
     {
         Id = id;
@@ -32,6 +34,7 @@ public class RoomTypeResponse
         MinPersonCount = minPersonCount;
         MaxPersonCount = maxPersonCount;
         Services = services;
-        Amenties = amenties;
+        Amenities = amenities;
+        AvailableRooms = availableRooms;
     }
 }

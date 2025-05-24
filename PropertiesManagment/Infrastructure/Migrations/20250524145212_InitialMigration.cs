@@ -40,7 +40,8 @@ namespace Infrastructure.Migrations
                     MinPersonCount = table.Column<int>(type: "int", nullable: false),
                     MaxPersonCount = table.Column<int>(type: "int", nullable: false),
                     Services = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    Amenties = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false)
+                    Amenities = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    AvailableRooms = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

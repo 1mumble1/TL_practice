@@ -1,4 +1,8 @@
-﻿namespace Domain.Entities;
+﻿using System.Diagnostics.Metrics;
+using System.Net;
+using System.Xml.Linq;
+
+namespace Domain.Entities;
 
 public class Property
 {
@@ -13,18 +17,17 @@ public class Property
     public List<Reservation> Reservations { get; private set; } = [];
 
     public Property(
-            string name,
-            string country,
-            string city,
-            string address,
-            decimal latitude,
-            decimal longitude
-        )
+        string name,
+        string country,
+        string city,
+        string address,
+        decimal latitude,
+        decimal longitude )
     {
-        CheckIfNull( name );
-        CheckIfNull( country );
-        CheckIfNull( city );
-        CheckIfNull( address );
+        CheckIfNull( name, nameof( name ) );
+        CheckIfNull( country, nameof( country ) );
+        CheckIfNull( city, nameof( city ) );
+        CheckIfNull( address, nameof( address ) );
         CheckCoordinate( latitude, -90, 90 );
         CheckCoordinate( longitude, -180, 180 );
 
@@ -37,20 +40,31 @@ public class Property
         Longitude = longitude;
     }
 
-    public Property(
-            Guid id,
-            string name,
-            string country,
-            string city,
-            string address,
-            decimal latitude,
-            decimal longitude
-        )
+    public Property( Property anotherProperty, List<RoomType> roomTypes )
     {
-        CheckIfNull( name );
-        CheckIfNull( country );
-        CheckIfNull( city );
-        CheckIfNull( address );
+        Id = anotherProperty.Id;
+        Name = anotherProperty.Name;
+        Country = anotherProperty.Country;
+        City = anotherProperty.City;
+        Address = anotherProperty.Address;
+        Latitude = anotherProperty.Latitude;
+        Longitude = anotherProperty.Longitude;
+        RoomTypes = roomTypes;
+    }
+
+    public Property(
+        Guid id,
+        string name,
+        string country,
+        string city,
+        string address,
+        decimal latitude,
+        decimal longitude )
+    {
+        CheckIfNull( name, nameof( name ) );
+        CheckIfNull( country, nameof( country ) );
+        CheckIfNull( city, nameof( city ) );
+        CheckIfNull( address, nameof( address ) );
         CheckCoordinate( latitude, -90, 90 );
         CheckCoordinate( longitude, -180, 180 );
 
@@ -71,47 +85,11 @@ public class Property
         }
     }
 
-    private void CheckIfNull( string value )
+    private void CheckIfNull( string value, string nameOfValue )
     {
         if ( string.IsNullOrWhiteSpace( value ) )
         {
-            throw new ArgumentNullException( $"{nameof( value )} cannot be null or empty." );
+            throw new ArgumentNullException( $"{nameOfValue} cannot be null or empty." );
         }
     }
-
-    //public void SetName( string name )
-    //{
-    //    CheckIfNull( name );
-    //    Name = name;
-    //}
-
-    //public void SetCountry( string country )
-    //{
-    //    CheckIfNull( country );
-    //    Country = country;
-    //}
-
-    //public void SetCity( string city )
-    //{
-    //    CheckIfNull( city );
-    //    City = city;
-    //}
-
-    //public void SetAddress( string address )
-    //{
-    //    CheckIfNull( address );
-    //    Address = address;
-    //}
-
-    //public void SetLatitude( decimal latitude )
-    //{
-    //    CheckCoordinate( latitude, -90, 90 );
-    //    Latitude = latitude;
-    //}
-
-    //public void SetLongitude( decimal longitude )
-    //{
-    //    CheckCoordinate( longitude, -180, 180 );
-    //    Longitude = longitude;
-    //}
 }

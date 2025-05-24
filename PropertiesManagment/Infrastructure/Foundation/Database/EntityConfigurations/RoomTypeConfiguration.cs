@@ -33,7 +33,7 @@ public class RoomTypeConfiguratuion : IEntityTypeConfiguration<RoomType>
             .HasMaxLength( 500 )
             .IsRequired();
 
-        builder.Property( rt => rt.Amenties )
+        builder.Property( rt => rt.Amenities )
             .HasMaxLength( 500 )
             .IsRequired();
 

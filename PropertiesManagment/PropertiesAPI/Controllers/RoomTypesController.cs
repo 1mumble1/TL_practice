@@ -20,7 +20,19 @@ public class RoomTypesController : ControllerBase
     {
         List<RoomType> roomTypes = await _roomTypesService.GetAllRoomTypesByPropertyId( propertyId );
 
-        var roomTypesResponse = roomTypes.Select( rt => new RoomTypeResponse( rt.Id, rt.PropertyId, rt.Name, rt.DailyPrice, rt.Currency, rt.MinPersonCount, rt.MaxPersonCount, rt.Services, rt.Amenties ) ).ToList();
+        var roomTypesResponse = roomTypes
+            .Select( rt => new RoomTypeResponse(
+                rt.Id,
+                rt.PropertyId,
+                rt.Name,
+                rt.DailyPrice,
+                rt.Currency,
+                rt.MinPersonCount,
+                rt.MaxPersonCount,
+                rt.Services,
+                rt.Amenities,
+                rt.AvailableRooms ) )
+            .ToList();
 
         return Ok( roomTypesResponse );
     }
@@ -35,7 +47,17 @@ public class RoomTypesController : ControllerBase
             return NotFound();
         }
 
-        RoomTypeResponse roomTypeResonse = new( roomType.Id, roomType.PropertyId, roomType.Name, roomType.DailyPrice, roomType.Currency, roomType.MinPersonCount, roomType.MaxPersonCount, roomType.Services, roomType.Amenties );
+        RoomTypeResponse roomTypeResonse = new(
+            roomType.Id,
+            roomType.PropertyId,
+            roomType.Name,
+            roomType.DailyPrice,
+            roomType.Currency,
+            roomType.MinPersonCount,
+            roomType.MaxPersonCount,
+            roomType.Services,
+            roomType.Amenities,
+            roomType.AvailableRooms );
 
         return Ok( roomTypeResonse );
     }
@@ -46,15 +68,15 @@ public class RoomTypesController : ControllerBase
         try
         {
             Guid result = await _roomTypesService.CreateRoomType(
-                    propertyId,
-                    createRoomTypeRequest.Name,
-                    createRoomTypeRequest.DailyPrice,
-                    createRoomTypeRequest.Currency,
-                    createRoomTypeRequest.MinPersonCount,
-                    createRoomTypeRequest.MaxPersonCount,
-                    createRoomTypeRequest.Services,
-                    createRoomTypeRequest.Amenties
-                );
+                propertyId,
+                createRoomTypeRequest.Name,
+                createRoomTypeRequest.DailyPrice,
+                createRoomTypeRequest.Currency,
+                createRoomTypeRequest.MinPersonCount,
+                createRoomTypeRequest.MaxPersonCount,
+                createRoomTypeRequest.Services,
+                createRoomTypeRequest.Amenities,
+                createRoomTypeRequest.AvailableRooms );
             return Ok( result );
         }
         catch ( Exception ex )
@@ -69,16 +91,16 @@ public class RoomTypesController : ControllerBase
         try
         {
             Guid result = await _roomTypesService.UpdateRoomType(
-                    id,
-                    updateRoomTypeRequest.PropertyId,
-                    updateRoomTypeRequest.Name,
-                    updateRoomTypeRequest.DailyPrice,
-                    updateRoomTypeRequest.Currency,
-                    updateRoomTypeRequest.MinPersonCount,
-                    updateRoomTypeRequest.MaxPersonCount,
-                    updateRoomTypeRequest.Services,
-                    updateRoomTypeRequest.Amenties
-                );
+                id,
+                updateRoomTypeRequest.PropertyId,
+                updateRoomTypeRequest.Name,
+                updateRoomTypeRequest.DailyPrice,
+                updateRoomTypeRequest.Currency,
+                updateRoomTypeRequest.MinPersonCount,
+                updateRoomTypeRequest.MaxPersonCount,
+                updateRoomTypeRequest.Services,
+                updateRoomTypeRequest.Amenities,
+                updateRoomTypeRequest.AvailableRooms );
 
             return Ok( result );
         }

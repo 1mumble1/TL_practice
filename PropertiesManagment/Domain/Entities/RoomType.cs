@@ -11,7 +11,7 @@ public class RoomType
     public int MinPersonCount { get; private set; }
     public int MaxPersonCount { get; private set; }
     public string Services { get; private set; }
-    public string Amenties { get; private set; }
+    public string Amenities { get; private set; }
     public int AvailableRooms { get; private set; }
     public List<Reservation> Reservations { get; private set; } = [];
 
@@ -24,19 +24,25 @@ public class RoomType
         int minPersonCount,
         int maxPersonCount,
         string services,
-        string amenties
+        string amenities,
+        int availableRooms
     )
     {
-        CheckIfNull( name );
-        CheckIfNull( currency );
-        CheckIfNull( services );
-        CheckIfNull( amenties );
+        CheckIfNull( name, nameof( name ) );
+        CheckIfNull( currency, nameof( currency ) );
+        CheckIfNull( services, nameof( services ) );
+        CheckIfNull( amenities, nameof( amenities ) );
         if ( minPersonCount < 0 ||
             maxPersonCount < 0 ||
             minPersonCount > maxPersonCount )
         {
             throw new ArgumentException( $"{nameof( minPersonCount )} and {nameof( maxPersonCount )} must be greater than 0, {nameof( minPersonCount )} must be less than {nameof( maxPersonCount )}" );
         }
+        if ( availableRooms < 1 )
+        {
+            throw new ArgumentException( $"{nameof( availableRooms )} must be greater than 1" );
+        }
+
         Id = id;
         PropertyId = propertyId;
         Name = name;
@@ -45,7 +51,8 @@ public class RoomType
         MinPersonCount = minPersonCount;
         MaxPersonCount = maxPersonCount;
         Services = services;
-        Amenties = amenties;
+        Amenities = amenities;
+        AvailableRooms = availableRooms;
     }
 
     public RoomType(
@@ -56,19 +63,25 @@ public class RoomType
             int minPersonCount,
             int maxPersonCount,
             string services,
-            string amenties
+            string amenities,
+            int availableRooms
         )
     {
-        CheckIfNull( name );
-        CheckIfNull( currency );
-        CheckIfNull( services );
-        CheckIfNull( amenties );
+        CheckIfNull( name, nameof( name ) );
+        CheckIfNull( currency, nameof( currency ) );
+        CheckIfNull( services, nameof( services ) );
+        CheckIfNull( amenities, nameof( amenities ) );
         if ( minPersonCount < 0 ||
             maxPersonCount < 0 ||
             minPersonCount > maxPersonCount )
         {
             throw new ArgumentException( $"{nameof( minPersonCount )} and {nameof( maxPersonCount )} must be greater than 0, {nameof( minPersonCount )} must be less than {nameof( maxPersonCount )}" );
         }
+        if ( availableRooms < 1 )
+        {
+            throw new ArgumentException( $"{nameof( availableRooms )} must be greater than 1" );
+        }
+
         Id = Guid.NewGuid();
         PropertyId = propertyId;
         Name = name;
@@ -77,14 +90,15 @@ public class RoomType
         MinPersonCount = minPersonCount;
         MaxPersonCount = maxPersonCount;
         Services = services;
-        Amenties = amenties;
+        Amenities = amenities;
+        AvailableRooms = availableRooms;
     }
 
-    private void CheckIfNull( string value )
+    private void CheckIfNull( string value, string nameOfValue )
     {
         if ( string.IsNullOrWhiteSpace( value ) )
         {
-            throw new ArgumentNullException( $"{nameof( value )} cannot be null or empty." );
+            throw new ArgumentNullException( $"{nameOfValue} cannot be null or empty." );
         }
     }
 }

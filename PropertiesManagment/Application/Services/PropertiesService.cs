@@ -26,17 +26,22 @@ public class PropertiesService : IPropertiesService
     }
 
     public async Task<Guid> CreateProperty(
-            string name,
-            string country,
-            string city,
-            string address,
-            decimal latitude,
-            decimal longitude
-        )
+        string name,
+        string country,
+        string city,
+        string address,
+        decimal latitude,
+        decimal longitude )
     {
         try
         {
-            Property property = new( name, country, city, address, latitude, longitude );
+            Property property = new(
+                name,
+                country,
+                city,
+                address,
+                latitude,
+                longitude );
             var result = await _propertiesRepository.Create( property );
             return result;
         }
@@ -53,12 +58,18 @@ public class PropertiesService : IPropertiesService
         string city,
         string address,
         decimal latitude,
-        decimal longitude
-        )
+        decimal longitude )
     {
         try
         {
-            Property property = new( id, name, country, city, address, latitude, longitude );
+            Property property = new(
+                id,
+                name,
+                country,
+                city,
+                address,
+                latitude,
+                longitude );
             var result = await _propertiesRepository.Update( property );
             return result;
         }
