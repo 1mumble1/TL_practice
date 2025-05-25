@@ -1,4 +1,5 @@
-﻿using System.Threading.Channels;
+﻿using CarFactory.Application.CarReader;
+using CarFactory.Models.Cars;
 
 internal class Program
 {
@@ -6,15 +7,16 @@ internal class Program
     {
         Console.WriteLine( "Добро пожаловать на фабрику машин!" );
         Console.WriteLine( "Давайте соберем вашу первую машину?" );
-        CarFactory.Factories.CarFactory factory = new();
+        ICarReader carReader = new ConsoleCarReader();
+        CarFactory.Application.Factories.CarFactory factory = new( carReader );
 
-        bool isCarFactoryFinished = false;
-        while ( !isCarFactoryFinished )
+        bool isCarFactoryRunning = true;
+        while ( isCarFactoryRunning )
         {
-            CarFactory.Cars.ICar car = factory.CreateCar();
+            ICar car = factory.CreateCar();
 
             Console.WriteLine( "Ваша машина готова!" );
-            Console.WriteLine( car.GetDescription() );
+            Console.WriteLine( car.ToString() );
 
             Console.WriteLine( "Хотите собрать еще одну машину? Нажмите Enter - чтобы продолжить, любую клавишу - чтобы выйти" );
             ConsoleKeyInfo userConfirmation = Console.ReadKey();
@@ -26,7 +28,7 @@ internal class Program
             else
             {
                 Console.WriteLine( "До свидания!" );
-                isCarFactoryFinished = true;
+                isCarFactoryRunning = false;
             }
         }
     }
