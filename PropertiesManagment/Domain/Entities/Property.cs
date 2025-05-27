@@ -40,17 +40,16 @@ public class Property
         Longitude = longitude;
     }
 
-    public Property( Property anotherProperty, List<RoomType> roomTypes )
-    {
-        Id = anotherProperty.Id;
-        Name = anotherProperty.Name;
-        Country = anotherProperty.Country;
-        City = anotherProperty.City;
-        Address = anotherProperty.Address;
-        Latitude = anotherProperty.Latitude;
-        Longitude = anotherProperty.Longitude;
-        RoomTypes = roomTypes;
-    }
+    //public Property( Property anotherProperty )
+    //{
+    //    Id = anotherProperty.Id;
+    //    Name = anotherProperty.Name;
+    //    Country = anotherProperty.Country;
+    //    City = anotherProperty.City;
+    //    Address = anotherProperty.Address;
+    //    Latitude = anotherProperty.Latitude;
+    //    Longitude = anotherProperty.Longitude;
+    //}
 
     public Property(
         Guid id,

@@ -1,4 +1,5 @@
-﻿using Domain.Abstractions.Repositories;
+﻿using Domain.Abstractions.Contracts;
+using Domain.Abstractions.Repositories;
 using Domain.Abstractions.Services;
 using Domain.Entities;
 
@@ -13,14 +14,14 @@ public class ReservationsService : IReservationsService
         _reservationsRepository = reservationsRepository;
     }
 
-    public async Task<List<Property>> SearchAvailableReservations(
+    public async Task<List<PropertyWithRoomTypesDto>> SearchAvailableReservations(
         string? city,
         DateOnly? arrivalDate,
         DateOnly? departureDate,
         int? guests,
         decimal? maxDailyPrice )
     {
-        List<Property> result = await _reservationsRepository.SearchAvailable(
+        List<PropertyWithRoomTypesDto> result = await _reservationsRepository.SearchAvailable(
             city,
             arrivalDate,
             departureDate,

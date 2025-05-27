@@ -24,7 +24,7 @@ public class ReservationsController : ControllerBase
         [FromQuery] int? guests,
         [FromQuery] decimal? maxDailyPrice )
     {
-        var result = await SearchAvailableReservations(
+        List<Domain.Abstractions.Contracts.PropertyWithRoomTypesDto> result = await _reservationsService.SearchAvailableReservations(
             city,
             arrivalDate,
             departureDate,

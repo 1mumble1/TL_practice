@@ -32,8 +32,8 @@ public class RoomType
         CheckIfNull( currency, nameof( currency ) );
         CheckIfNull( services, nameof( services ) );
         CheckIfNull( amenities, nameof( amenities ) );
-        if ( minPersonCount < 0 ||
-            maxPersonCount < 0 ||
+        if ( minPersonCount <= 0 ||
+            maxPersonCount <= 0 ||
             minPersonCount > maxPersonCount )
         {
             throw new ArgumentException( $"{nameof( minPersonCount )} and {nameof( maxPersonCount )} must be greater than 0, {nameof( minPersonCount )} must be less than {nameof( maxPersonCount )}" );
@@ -41,6 +41,10 @@ public class RoomType
         if ( availableRooms < 1 )
         {
             throw new ArgumentException( $"{nameof( availableRooms )} must be greater than 1" );
+        }
+        if ( dailyPrice <= 0 )
+        {
+            throw new ArgumentException( $"{nameof( dailyPrice )} cannot be less or equal 0" );
         }
 
         Id = id;
@@ -71,8 +75,8 @@ public class RoomType
         CheckIfNull( currency, nameof( currency ) );
         CheckIfNull( services, nameof( services ) );
         CheckIfNull( amenities, nameof( amenities ) );
-        if ( minPersonCount < 0 ||
-            maxPersonCount < 0 ||
+        if ( minPersonCount <= 0 ||
+            maxPersonCount <= 0 ||
             minPersonCount > maxPersonCount )
         {
             throw new ArgumentException( $"{nameof( minPersonCount )} and {nameof( maxPersonCount )} must be greater than 0, {nameof( minPersonCount )} must be less than {nameof( maxPersonCount )}" );
@@ -80,6 +84,10 @@ public class RoomType
         if ( availableRooms < 1 )
         {
             throw new ArgumentException( $"{nameof( availableRooms )} must be greater than 1" );
+        }
+        if ( dailyPrice <= 0 )
+        {
+            throw new ArgumentException( $"{nameof( dailyPrice )} cannot be less or equal 0" );
         }
 
         Id = Guid.NewGuid();

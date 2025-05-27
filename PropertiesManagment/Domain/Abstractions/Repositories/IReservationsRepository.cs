@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Domain.Abstractions.Contracts;
+using Domain.Entities;
 
 namespace Domain.Abstractions.Repositories;
 
@@ -14,7 +15,7 @@ public interface IReservationsRepository
         string? guestName,
         string? guestPhoneNumber );
     Task<Reservation?> GetById( Guid id );
-    Task<List<Property>> SearchAvailable(
+    Task<List<PropertyWithRoomTypesDto>> SearchAvailable(
         string? city,
         DateOnly? arrivalDate,
         DateOnly? departureDate,

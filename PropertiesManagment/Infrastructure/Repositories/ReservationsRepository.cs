@@ -1,4 +1,5 @@
-﻿using Domain.Abstractions.Repositories;
+﻿using Domain.Abstractions.Contracts;
+using Domain.Abstractions.Repositories;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,36 +13,44 @@ public class ReservationsRepository : IReservationsRepository
         _dbContext = dbContext;
     }
 
-    public async Task<List<Property>> SearchAvailable(
+    public async Task<List<PropertyWithRoomTypesDto>> SearchAvailable(
         string? city,
         DateOnly? arrivalDate,
         DateOnly? departureDate,
         int? guests,
         decimal? maxDailyPrice )
     {
-        if ( !arrivalDate.HasValue && !departureDate.HasValue )
+        if ( arrivalDate.HasValue && !departureDate.HasValue ||
+            !arrivalDate.HasValue && departureDate.HasValue )
         {
             throw new ArgumentException( "Cannot search with only one date" );
         }
 
         // property by city
-        IQueryable<Property> propertiesQuery = city is null ? _dbContext.Properties.AsQueryable() : _dbContext.Properties
-            .Where( p => p.City == city )
-            .AsQueryable();
+        IQueryable<Property> propertiesQuery = city is null
+            ? _dbContext.Properties.AsQueryable()
+            : _dbContext.Properties.Where( p => p.City == city );
 
         // room type by guests count
-        IQueryable<RoomType> roomTypesQueryByGuests = guests.HasValue ? _dbContext.RoomTypes
-            .Where( rt => rt.MinPersonCount <= guests &&
-                         rt.MaxPersonCount >= guests &&
-                         rt.DailyPrice <= maxDailyPrice ).AsQueryable() : _dbContext.RoomTypes.AsQueryable();
+        IQueryable<RoomType> roomTypesQuery = _dbContext.RoomTypes.AsQueryable();
 
-        // by daily price
-        IQueryable<RoomType> roomTypesQuery = maxDailyPrice.HasValue ? roomTypesQueryByGuests : roomTypesQueryByGuests.ToList().Where( rt => rt.DailyPrice <= maxDailyPrice ).AsQueryable();
+        if ( guests.HasValue )
+        {
+            roomTypesQuery = roomTypesQuery.Where( rt =>
+                rt.MinPersonCount <= guests && rt.MaxPersonCount >= guests );
+        }
+
+        if ( maxDailyPrice.HasValue )
+        {
+            roomTypesQuery = roomTypesQuery.Where( rt => rt.DailyPrice <= maxDailyPrice );
+        }
 
         // conflicting reservations if we have arrival and departure dates; else empty list
-        List<Reservation> conflictingReservations = arrivalDate.HasValue ? await _dbContext.Reservations
-            .Where( r => r.ArrivalDate < departureDate && r.DepartureDate > arrivalDate )
-            .ToListAsync() : [];
+        List<Reservation> conflictingReservations = arrivalDate.HasValue
+            ? await _dbContext.Reservations
+                .Where( r => r.ArrivalDate < departureDate && r.DepartureDate > arrivalDate )
+                .ToListAsync()
+            : new List<Reservation>();
 
         // group
         Dictionary<Guid, int> bookedRoomTypes = conflictingReservations
@@ -65,13 +74,36 @@ public class ReservationsRepository : IReservationsRepository
             .Where( p => propertyIds.Contains( p.Id ) )
             .ToListAsync();
 
-        List<Property> result = availableProperties
-            .Select( p => new Property(
-                p,
-                availableRoomTypes
-                    .Where( rt => rt.PropertyId == p.Id )
-                    .ToList() ) )
-            .ToList();
+        //List<Property> result = availableProperties
+        //    .Select( p => new Property(
+        //        p,
+        //        availableRoomTypes.Where( rt => rt.PropertyId == p.Id ).ToList() ) )
+        //    .ToList();
+
+        var result = availableProperties.Select( p => new PropertyWithRoomTypesDto
+        {
+            Property = new PropertyDto(
+                p.Id,
+                p.Name,
+                p.Country,
+                p.City,
+                p.Address,
+                p.Latitude,
+                p.Longitude ),
+            RoomTypes = availableRoomTypes
+                .Where( rt => rt.PropertyId == p.Id )
+                .Select( rt => new RoomTypeDto(
+                    rt.Id,
+                    rt.Name,
+                    rt.DailyPrice,
+                    rt.Currency,
+                    rt.MinPersonCount,
+                    rt.MaxPersonCount,
+                    rt.Services,
+                    rt.Amenities,
+                    rt.AvailableRooms ) )
+                .ToList()
+        } ).ToList();
 
         return result;
     }
