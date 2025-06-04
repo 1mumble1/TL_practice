@@ -7,13 +7,13 @@ namespace CarFactory.Application.CarReader;
 
 public class ConsoleCarReader : ICarReader
 {
-    public string GetCarName()
+    public string ReadCarName()
     {
         Console.Write( "Введите название вашего автомобиля: " );
-        return GetString();
+        return ReadString();
     }
 
-    public ITransmission GetTransmission()
+    public ITransmission ReadTransmission()
     {
         Console.WriteLine(
 @"Выберите тип трансмиссии: 
@@ -22,7 +22,7 @@ public class ConsoleCarReader : ICarReader
     3 - Роботизированный"
 );
 
-        return GetOption( 1, 4 ) switch
+        return ReadOption( 1, 4 ) switch
         {
             1 => new Mechanical(),
             2 => new Automatic(),
@@ -31,7 +31,7 @@ public class ConsoleCarReader : ICarReader
         };
     }
 
-    public IEngine GetEngine()
+    public IEngine ReadEngine()
     {
         Console.WriteLine(
 @"Выберите тип двигателя: 
@@ -41,7 +41,7 @@ public class ConsoleCarReader : ICarReader
     4 - Электрический"
 );
 
-        return GetOption( 1, 4 ) switch
+        return ReadOption( 1, 4 ) switch
         {
             1 => new V6(),
             2 => new V8(),
@@ -51,7 +51,7 @@ public class ConsoleCarReader : ICarReader
         };
     }
 
-    public IColor GetColor()
+    public IColor ReadColor()
     {
         Console.WriteLine(
 @"Выберите цвет кузова: 
@@ -60,9 +60,9 @@ public class ConsoleCarReader : ICarReader
     3 - Красный
     4 - Серебристый
     5 - Белый"
-    );
+);
 
-        return GetOption( 1, 5 ) switch
+        return ReadOption( 1, 5 ) switch
         {
             1 => new Black(),
             2 => new Blue(),
@@ -73,7 +73,7 @@ public class ConsoleCarReader : ICarReader
         };
     }
 
-    public IBodyShape GetBodyShape()
+    public IBodyShape ReadBodyShape()
     {
         Console.WriteLine(
 @"Выберите форму кузова: 
@@ -81,9 +81,9 @@ public class ConsoleCarReader : ICarReader
     2 - Хэтчбэк
     3 - Лифтбэк
     4 - Седан"
-            );
+);
 
-        return GetOption( 1, 4 ) switch
+        return ReadOption( 1, 4 ) switch
         {
             1 => new Coupe(),
             2 => new Hatchback(),
@@ -93,7 +93,7 @@ public class ConsoleCarReader : ICarReader
         };
     }
 
-    private int GetOption( int minValue, int maxValue )
+    private int ReadOption( int minValue, int maxValue )
     {
         int choice;
         while ( !int.TryParse( Console.ReadLine(), out choice ) || choice < minValue || choice > maxValue )
@@ -104,7 +104,7 @@ public class ConsoleCarReader : ICarReader
         return choice;
     }
 
-    private static string GetString()
+    private static string ReadString()
     {
         string? str = Console.ReadLine();
         while ( string.IsNullOrWhiteSpace( str ) )

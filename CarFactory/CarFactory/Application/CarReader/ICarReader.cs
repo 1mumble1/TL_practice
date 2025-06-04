@@ -7,9 +7,9 @@ namespace CarFactory.Application.CarReader;
 
 public interface ICarReader
 {
-    string GetCarName();
-    IBodyShape GetBodyShape();
-    IColor GetColor();
-    IEngine GetEngine();
-    ITransmission GetTransmission();
+    string ReadCarName();
+    IBodyShape ReadBodyShape();
+    IColor ReadColor();
+    IEngine ReadEngine();
+    ITransmission ReadTransmission();
 }
