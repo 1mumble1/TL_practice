@@ -1,5 +1,6 @@
-﻿using Domain.Abstractions.Repositories;
-using Domain.Abstractions.Services;
+﻿using Application.Abstractions;
+using Application.Contracts;
+using Domain.Abstractions.Repositories;
 using Domain.Entities;
 
 namespace Application.Services;
@@ -7,21 +8,57 @@ namespace Application.Services;
 public class RoomTypesService : IRoomTypesService
 {
     private readonly IRoomTypesRepository _roomTypesRepository;
+
     public RoomTypesService( IRoomTypesRepository roomTypesRepository )
     {
         _roomTypesRepository = roomTypesRepository;
     }
 
-    public async Task<List<RoomType>> GetAllRoomTypesByPropertyId( Guid propertyId )
+    public async Task<IReadOnlyList<RoomTypeDto>> GetAllRoomTypesByPropertyId( Guid propertyId )
     {
-        List<RoomType> roomTypes = await _roomTypesRepository.GetAllByPropertyId( propertyId );
-        return roomTypes;
+        Property? property = await _roomTypesRepository.GetPropertyById( propertyId );
+
+        if ( property is null )
+        {
+            throw new ArgumentException( $"Not found property with id: {propertyId}" );
+        }
+
+        IReadOnlyList<RoomType> roomTypes = await _roomTypesRepository.GetAllByPropertyId( property.Id );
+
+        return roomTypes
+            .Select( rt => new RoomTypeDto(
+                rt.PublicId,
+                rt.Property.PublicId,
+                rt.Name,
+                rt.DailyPrice,
+                rt.Currency,
+                rt.MinPersonCount,
+                rt.MaxPersonCount,
+                rt.Services,
+                rt.Amenities,
+                rt.AvailableRooms ) )
+            .ToList();
     }
 
-    public async Task<RoomType?> GetRoomTypeById( Guid id )
+    public async Task<RoomTypeDto?> GetRoomTypeById( Guid id )
     {
         RoomType? roomType = await _roomTypesRepository.GetById( id );
-        return roomType;
+        if ( roomType is null )
+        {
+            return null;
+        }
+
+        return new RoomTypeDto(
+            roomType.PublicId,
+            roomType.Property.PublicId,
+            roomType.Name,
+            roomType.DailyPrice,
+            roomType.Currency,
+            roomType.MinPersonCount,
+            roomType.MaxPersonCount,
+            roomType.Services,
+            roomType.Amenities,
+            roomType.AvailableRooms );
     }
 
     public async Task<Guid> CreateRoomType(
@@ -35,28 +72,28 @@ public class RoomTypesService : IRoomTypesService
         string amenities,
         int availableRooms )
     {
-        try
+        Property? property = await _roomTypesRepository.GetPropertyById( propertyId );
+
+        if ( property is null )
         {
-            RoomType roomType = new(
-                propertyId,
-                name,
-                dailyPrice,
-                currency,
-                minPersonCount,
-                maxPersonCount,
-                services,
-                amenities,
-                availableRooms );
-            var result = await _roomTypesRepository.Create( roomType );
-            return result;
+            throw new ArgumentException( $"Not found property with id: {propertyId}" );
         }
-        catch ( Exception ex )
-        {
-            throw new InvalidOperationException( $"Error: {ex.Message}" );
-        }
+
+        RoomType roomType = new(
+            property.Id,
+            name,
+            dailyPrice,
+            currency,
+            minPersonCount,
+            maxPersonCount,
+            services,
+            amenities,
+            availableRooms );
+
+        return await _roomTypesRepository.Create( roomType );
     }
 
-    public async Task<Guid> UpdateRoomType(
+    public async Task UpdateRoomType(
         Guid id,
         Guid propertyId,
         string name,
@@ -68,30 +105,36 @@ public class RoomTypesService : IRoomTypesService
         string amenities,
         int availableRooms )
     {
-        try
+        RoomType? roomType = await _roomTypesRepository.GetById( id );
+
+        if ( roomType is null )
         {
-            RoomType roomType = new(
-                id,
-                propertyId,
-                name,
-                dailyPrice,
-                currency,
-                minPersonCount,
-                maxPersonCount,
-                services,
-                amenities,
-                availableRooms );
-            var result = await _roomTypesRepository.Update( roomType );
-            return result;
+            throw new ArgumentException( $"Not found room type with id: {id}" );
         }
-        catch ( Exception ex )
+
+        Property? property = await _roomTypesRepository.GetPropertyById( propertyId );
+
+        if ( property is null )
         {
-            throw new InvalidOperationException( $"Error: {ex.Message}" );
+            throw new ArgumentException( $"Not found property with id: {propertyId}" );
         }
+
+        roomType.Update(
+            property.Id,
+            name,
+            dailyPrice,
+            currency,
+            minPersonCount,
+            maxPersonCount,
+            services,
+            amenities,
+            availableRooms );
+
+        await _roomTypesRepository.Update( roomType );
     }
 
-    public async Task<Guid> DeleteRoomType( Guid id )
+    public async Task DeleteRoomType( Guid id )
     {
-        return await _roomTypesRepository.Delete( id );
+        await _roomTypesRepository.Delete( id );
     }
 }

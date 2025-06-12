@@ -1,6 +1,6 @@
-﻿using Domain.Entities;
+﻿using Application.Contracts;
 
-namespace Domain.Abstractions.Services;
+namespace Application.Abstractions;
 
 public interface IPropertiesService
 {
@@ -11,10 +11,10 @@ public interface IPropertiesService
         string address,
         decimal latitude,
         decimal longitude );
-    Task<Guid> DeleteProperty( Guid id );
-    Task<List<Property>> GetAllProperties();
-    Task<Property?> GetPropertyById( Guid id );
-    Task<Guid> UpdateProperty(
+    Task DeleteProperty( Guid id );
+    Task<IReadOnlyList<PropertyDto>> GetAllProperties();
+    Task<PropertyDto?> GetPropertyById( Guid id );
+    Task UpdateProperty(
         Guid id,
         string name,
         string country,

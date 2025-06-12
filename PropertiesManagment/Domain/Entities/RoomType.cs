@@ -2,8 +2,9 @@
 
 public class RoomType
 {
-    public Guid Id { get; }
-    public Guid PropertyId { get; private set; }
+    public Guid PublicId { get; }
+    public int Id { get; }
+    public int PropertyId { get; private set; }
     public Property Property { get; private set; }
     public string Name { get; private set; }
     public decimal DailyPrice { get; private set; }
@@ -16,8 +17,7 @@ public class RoomType
     public List<Reservation> Reservations { get; private set; } = [];
 
     public RoomType(
-        Guid id,
-        Guid propertyId,
+        int propertyId,
         string name,
         decimal dailyPrice,
         string currency,
@@ -25,8 +25,7 @@ public class RoomType
         int maxPersonCount,
         string services,
         string amenities,
-        int availableRooms
-    )
+        int availableRooms )
     {
         CheckIfNull( name, nameof( name ) );
         CheckIfNull( currency, nameof( currency ) );
@@ -36,7 +35,8 @@ public class RoomType
             maxPersonCount <= 0 ||
             minPersonCount > maxPersonCount )
         {
-            throw new ArgumentException( $"{nameof( minPersonCount )} and {nameof( maxPersonCount )} must be greater than 0, {nameof( minPersonCount )} must be less than {nameof( maxPersonCount )}" );
+            throw new ArgumentException( $"{nameof( minPersonCount )} and {nameof( maxPersonCount )} must be greater than 0," +
+                $"{nameof( minPersonCount )} must be less than {nameof( maxPersonCount )}" );
         }
         if ( availableRooms < 1 )
         {
@@ -47,7 +47,7 @@ public class RoomType
             throw new ArgumentException( $"{nameof( dailyPrice )} cannot be less or equal 0" );
         }
 
-        Id = id;
+        PublicId = Guid.NewGuid();
         PropertyId = propertyId;
         Name = name;
         DailyPrice = dailyPrice;
@@ -59,17 +59,16 @@ public class RoomType
         AvailableRooms = availableRooms;
     }
 
-    public RoomType(
-            Guid propertyId,
-            string name,
-            decimal dailyPrice,
-            string currency,
-            int minPersonCount,
-            int maxPersonCount,
-            string services,
-            string amenities,
-            int availableRooms
-        )
+    public void Update(
+        int propertyId,
+        string name,
+        decimal dailyPrice,
+        string currency,
+        int minPersonCount,
+        int maxPersonCount,
+        string services,
+        string amenities,
+        int availableRooms )
     {
         CheckIfNull( name, nameof( name ) );
         CheckIfNull( currency, nameof( currency ) );
@@ -79,7 +78,8 @@ public class RoomType
             maxPersonCount <= 0 ||
             minPersonCount > maxPersonCount )
         {
-            throw new ArgumentException( $"{nameof( minPersonCount )} and {nameof( maxPersonCount )} must be greater than 0, {nameof( minPersonCount )} must be less than {nameof( maxPersonCount )}" );
+            throw new ArgumentException( $"{nameof( minPersonCount )} and {nameof( maxPersonCount )} must be greater than 0," +
+                $"{nameof( minPersonCount )} must be less than {nameof( maxPersonCount )}" );
         }
         if ( availableRooms < 1 )
         {
@@ -90,7 +90,6 @@ public class RoomType
             throw new ArgumentException( $"{nameof( dailyPrice )} cannot be less or equal 0" );
         }
 
-        Id = Guid.NewGuid();
         PropertyId = propertyId;
         Name = name;
         DailyPrice = dailyPrice;

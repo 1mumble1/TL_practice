@@ -7,46 +7,42 @@ namespace Infrastructure.Repositories;
 public class PropertiesRepository : IPropertiesRepository
 {
     private readonly PropertiesDbContext _dbContext;
+
     public PropertiesRepository( PropertiesDbContext dbContext )
     {
         _dbContext = dbContext;
     }
-    public async Task<List<Property>> GetAll()
+
+    public async Task<IReadOnlyList<Property>> GetAll()
     {
-        List<Property> properties = await _dbContext.Properties
+        return await _dbContext.Properties
             .AsNoTracking()
             .ToListAsync();
-
-        return properties;
     }
 
     public async Task<Property?> GetById( Guid id )
     {
-        Property? property = await _dbContext.Properties.FirstOrDefaultAsync( p => p.Id == id );
-        return property;
+        return await _dbContext.Properties
+            .FirstOrDefaultAsync( p => p.PublicId == id );
     }
 
     public async Task<Guid> Create( Property property )
     {
         await _dbContext.AddAsync( property );
         await _dbContext.SaveChangesAsync();
-        return property.Id;
+        return property.PublicId;
     }
 
-    public async Task<Guid> Update( Property property )
+    public async Task Update( Property property )
     {
         _dbContext.Properties.Update( property );
         await _dbContext.SaveChangesAsync();
-
-        return property.Id;
     }
 
-    public async Task<Guid> Delete( Guid id )
+    public async Task Delete( Guid id )
     {
         await _dbContext.Properties
-            .Where( p => p.Id == id )
+            .Where( p => p.PublicId == id )
             .ExecuteDeleteAsync();
-
-        return id;
     }
 }

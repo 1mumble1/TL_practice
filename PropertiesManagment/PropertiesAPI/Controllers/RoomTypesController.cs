@@ -1,4 +1,5 @@
-﻿using Domain.Abstractions.Services;
+﻿using Application.Abstractions;
+using Application.Contracts;
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using PropertiesAPI.Contracts.RoomType;
@@ -10,6 +11,7 @@ namespace PropertiesAPI.Controllers;
 public class RoomTypesController : ControllerBase
 {
     private readonly IRoomTypesService _roomTypesService;
+
     public RoomTypesController( IRoomTypesService roomTypesService )
     {
         _roomTypesService = roomTypesService;
@@ -18,29 +20,36 @@ public class RoomTypesController : ControllerBase
     [HttpGet( "properties/{propertyId:guid}/roomtypes" )]
     public async Task<IActionResult> GetAllRoomTypesByPropertyId( [FromRoute] Guid propertyId )
     {
-        List<RoomType> roomTypes = await _roomTypesService.GetAllRoomTypesByPropertyId( propertyId );
+        try
+        {
+            IReadOnlyList<RoomTypeDto> roomTypes = await _roomTypesService.GetAllRoomTypesByPropertyId( propertyId );
 
-        var roomTypesResponse = roomTypes
-            .Select( rt => new RoomTypeResponse(
-                rt.Id,
-                rt.PropertyId,
-                rt.Name,
-                rt.DailyPrice,
-                rt.Currency,
-                rt.MinPersonCount,
-                rt.MaxPersonCount,
-                rt.Services,
-                rt.Amenities,
-                rt.AvailableRooms ) )
-            .ToList();
+            IReadOnlyList<RoomTypeResponse> roomTypesResponse = roomTypes
+                .Select( rt => new RoomTypeResponse(
+                    rt.Id,
+                    rt.PropertyId,
+                    rt.Name,
+                    rt.DailyPrice,
+                    rt.Currency,
+                    rt.MinPersonCount,
+                    rt.MaxPersonCount,
+                    rt.Services,
+                    rt.Amenities,
+                    rt.AvailableRooms ) )
+                .ToList();
 
-        return Ok( roomTypesResponse );
+            return Ok( roomTypesResponse );
+        }
+        catch ( Exception ex )
+        {
+            return BadRequest( ex.Message );
+        }
     }
 
     [HttpGet( "roomtypes/{id:guid}" )]
     public async Task<IActionResult> GetRoomTypeById( [FromRoute] Guid id )
     {
-        RoomType? roomType = await _roomTypesService.GetRoomTypeById( id );
+        RoomTypeDto? roomType = await _roomTypesService.GetRoomTypeById( id );
 
         if ( roomType is null )
         {
@@ -90,7 +99,7 @@ public class RoomTypesController : ControllerBase
     {
         try
         {
-            Guid result = await _roomTypesService.UpdateRoomType(
+            await _roomTypesService.UpdateRoomType(
                 id,
                 updateRoomTypeRequest.PropertyId,
                 updateRoomTypeRequest.Name,
@@ -102,7 +111,7 @@ public class RoomTypesController : ControllerBase
                 updateRoomTypeRequest.Amenities,
                 updateRoomTypeRequest.AvailableRooms );
 
-            return Ok( result );
+            return Ok();
         }
         catch ( Exception ex )
         {
@@ -113,7 +122,7 @@ public class RoomTypesController : ControllerBase
     [HttpDelete( "roomtypes/{id:guid}" )]
     public async Task<IActionResult> DeleteRoomTypeById( [FromRoute] Guid id )
     {
-        var result = await _roomTypesService.DeleteRoomType( id );
-        return Ok( result );
+        await _roomTypesService.DeleteRoomType( id );
+        return Ok();
     }
 }

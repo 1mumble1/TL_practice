@@ -2,10 +2,11 @@
 
 public class Reservation
 {
-    public Guid Id { get; }
-    public Guid PropertyId { get; private set; }
+    public Guid PublicId { get; }
+    public int Id { get; }
+    public int PropertyId { get; private set; }
     public Property Property { get; private set; }
-    public Guid RoomTypeId { get; private set; }
+    public int RoomTypeId { get; private set; }
     public RoomType RoomType { get; private set; }
     public DateOnly ArrivalDate { get; private set; }
     public DateOnly DepartureDate { get; private set; }
@@ -17,8 +18,8 @@ public class Reservation
     public string Currency { get; }
 
     public Reservation(
-        Guid propertyId,
-        Guid roomTypeId,
+        int propertyId,
+        int roomTypeId,
         DateOnly arrivalDate,
         DateOnly departureDate,
         TimeOnly arrivalTime,
@@ -33,7 +34,7 @@ public class Reservation
         CheckIfNull( guestPhoneNumber, nameof( guestPhoneNumber ) );
         CheckIfNull( currency, nameof( currency ) );
 
-        Id = Guid.NewGuid();
+        PublicId = Guid.NewGuid();
         PropertyId = propertyId;
         RoomTypeId = roomTypeId;
         ArrivalDate = arrivalDate;

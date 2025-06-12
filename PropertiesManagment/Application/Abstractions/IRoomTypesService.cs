@@ -1,6 +1,6 @@
-﻿using Domain.Entities;
+﻿using Application.Contracts;
 
-namespace Domain.Abstractions.Services;
+namespace Application.Abstractions;
 
 public interface IRoomTypesService
 {
@@ -14,10 +14,10 @@ public interface IRoomTypesService
         string services,
         string amenities,
         int availableRooms );
-    Task<Guid> DeleteRoomType( Guid id );
-    Task<List<RoomType>> GetAllRoomTypesByPropertyId( Guid propertyId );
-    Task<RoomType?> GetRoomTypeById( Guid id );
-    Task<Guid> UpdateRoomType(
+    Task DeleteRoomType( Guid id );
+    Task<IReadOnlyList<RoomTypeDto>> GetAllRoomTypesByPropertyId( Guid propertyId );
+    Task<RoomTypeDto?> GetRoomTypeById( Guid id );
+    Task UpdateRoomType(
         Guid id,
         Guid propertyId,
         string name,

@@ -1,5 +1,6 @@
-﻿using Domain.Abstractions.Repositories;
-using Domain.Abstractions.Services;
+﻿using Application.Abstractions;
+using Application.Contracts;
+using Domain.Abstractions.Repositories;
 using Domain.Entities;
 
 namespace Application.Services;
@@ -13,16 +14,37 @@ public class PropertiesService : IPropertiesService
         _propertiesRepository = propertiesRepository;
     }
 
-    public async Task<List<Property>> GetAllProperties()
+    public async Task<IReadOnlyList<PropertyDto>> GetAllProperties()
     {
-        List<Property> properties = await _propertiesRepository.GetAll();
-        return properties;
+        IReadOnlyList<Property> properties = await _propertiesRepository.GetAll();
+        return properties
+            .Select( p => new PropertyDto(
+                p.PublicId,
+                p.Name,
+                p.Country,
+                p.City,
+                p.Address,
+                p.Latitude,
+                p.Longitude ) )
+            .ToList();
     }
 
-    public async Task<Property?> GetPropertyById( Guid id )
+    public async Task<PropertyDto?> GetPropertyById( Guid id )
     {
         Property? property = await _propertiesRepository.GetById( id );
-        return property;
+        if ( property is null )
+        {
+            return null;
+        }
+
+        return new PropertyDto(
+            property.PublicId,
+            property.Name,
+            property.Country,
+            property.City,
+            property.Address,
+            property.Longitude,
+            property.Latitude );
     }
 
     public async Task<Guid> CreateProperty(
@@ -33,25 +55,18 @@ public class PropertiesService : IPropertiesService
         decimal latitude,
         decimal longitude )
     {
-        try
-        {
-            Property property = new(
-                name,
-                country,
-                city,
-                address,
-                latitude,
-                longitude );
-            var result = await _propertiesRepository.Create( property );
-            return result;
-        }
-        catch ( Exception ex )
-        {
-            throw new InvalidOperationException( $"Error: {ex.Message}" );
-        }
+        Property property = new(
+            name,
+            country,
+            city,
+            address,
+            latitude,
+            longitude );
+
+        return await _propertiesRepository.Create( property );
     }
 
-    public async Task<Guid> UpdateProperty(
+    public async Task UpdateProperty(
         Guid id,
         string name,
         string country,
@@ -60,27 +75,26 @@ public class PropertiesService : IPropertiesService
         decimal latitude,
         decimal longitude )
     {
-        try
+        Property? property = await _propertiesRepository.GetById( id );
+
+        if ( property is null )
         {
-            Property property = new(
-                id,
-                name,
-                country,
-                city,
-                address,
-                latitude,
-                longitude );
-            var result = await _propertiesRepository.Update( property );
-            return result;
+            throw new ArgumentException( $"Not found property with id: {id}" );
         }
-        catch ( Exception ex )
-        {
-            throw new InvalidOperationException( $"Error: {ex.Message}" );
-        }
+
+        property.Update(
+            name,
+            country,
+            city,
+            address,
+            latitude,
+            longitude );
+
+        await _propertiesRepository.Update( property );
     }
 
-    public async Task<Guid> DeleteProperty( Guid id )
+    public async Task DeleteProperty( Guid id )
     {
-        return await _propertiesRepository.Delete( id );
+        await _propertiesRepository.Delete( id );
     }
 }

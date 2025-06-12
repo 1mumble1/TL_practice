@@ -1,6 +1,6 @@
+using Application.Abstractions;
 using Application.Services;
 using Domain.Abstractions.Repositories;
-using Domain.Abstractions.Services;
 using Infrastructure;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -17,7 +17,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<PropertiesDbContext>(
     options =>
     {
-        options.UseSqlServer( builder.Configuration.GetConnectionString( "DefaultConnection" ) );
+        options.UseSqlServer( builder.Configuration.GetConnectionString( "DefaultConnection" ),
+            x => x.MigrationsAssembly( "Infrastructure.Migrations" ) );
     } );
 
 builder.Services.AddScoped<IReservationsRepository, ReservationsRepository>();

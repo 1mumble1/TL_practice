@@ -1,10 +1,9 @@
-﻿using Domain.Entities;
-
-namespace Domain.Abstractions.Contracts;
+﻿namespace Application.Contracts;
 
 public class RoomTypeDto
 {
     public Guid Id { get; set; }
+    public Guid PropertyId { get; set; }
     public string Name { get; set; }
     public decimal DailyPrice { get; set; }
     public string Currency { get; set; }
@@ -16,6 +15,7 @@ public class RoomTypeDto
 
     public RoomTypeDto(
         Guid id,
+        Guid propertyId,
         string name,
         decimal dailyPrice,
         string currency,
@@ -26,6 +26,7 @@ public class RoomTypeDto
         int availableRooms )
     {
         Id = id;
+        PropertyId = propertyId;
         Name = name;
         DailyPrice = dailyPrice;
         Currency = currency;

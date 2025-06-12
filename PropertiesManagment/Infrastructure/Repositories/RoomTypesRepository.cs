@@ -7,62 +7,50 @@ namespace Infrastructure.Repositories;
 public class RoomTypesRepository : IRoomTypesRepository
 {
     private readonly PropertiesDbContext _dbContext;
+
     public RoomTypesRepository( PropertiesDbContext dbContext )
     {
         _dbContext = dbContext;
     }
-    public async Task<List<RoomType>> GetAllByPropertyId( Guid propertyId )
+
+    public async Task<IReadOnlyList<RoomType>> GetAllByPropertyId( int propertyId )
     {
-        List<RoomType> roomTypes = await _dbContext.RoomTypes
+        return await _dbContext.RoomTypes
             .AsNoTracking()
+            .Include( rt => rt.Property )
             .Where( rt => rt.PropertyId == propertyId )
             .ToListAsync();
-
-        return roomTypes;
     }
 
     public async Task<RoomType?> GetById( Guid id )
     {
-        RoomType? roomType = await _dbContext.RoomTypes.FirstOrDefaultAsync( rt => rt.Id == id );
-        return roomType;
+        return await _dbContext.RoomTypes
+            .Include( rt => rt.Property )
+            .FirstOrDefaultAsync( rt => rt.PublicId == id );
     }
 
     public async Task<Guid> Create( RoomType roomType )
     {
-        if ( !await IsExistsProperty( roomType.PropertyId ) )
-        {
-            throw new InvalidOperationException( $"Not found property with id: {roomType.PropertyId}" );
-        }
         await _dbContext.AddAsync( roomType );
         await _dbContext.SaveChangesAsync();
-        return roomType.Id;
+        return roomType.PublicId;
     }
 
-    public async Task<Guid> Update( RoomType roomType )
+    public async Task Update( RoomType roomType )
     {
-        if ( !await IsExistsProperty( roomType.PropertyId ) )
-        {
-            throw new InvalidOperationException( $"Not found property with id: {roomType.PropertyId}" );
-        }
         _dbContext.RoomTypes.Update( roomType );
         await _dbContext.SaveChangesAsync();
-
-        return roomType.Id;
     }
 
-    public async Task<Guid> Delete( Guid id )
+    public async Task Delete( Guid id )
     {
         await _dbContext.RoomTypes
-            .Where( rt => rt.Id == id )
+            .Where( rt => rt.PublicId == id )
             .ExecuteDeleteAsync();
-
-        return id;
     }
 
-    private async Task<bool> IsExistsProperty( Guid propertyId )
+    public async Task<Property?> GetPropertyById( Guid propertyId )
     {
-        Property? property = await _dbContext.Properties.FirstOrDefaultAsync( p => p.Id == propertyId );
-
-        return property is not null;
+        return await _dbContext.Properties.FirstOrDefaultAsync( p => p.PublicId == propertyId );
     }
 }

@@ -1,8 +1,6 @@
-﻿using Domain.Entities;
+﻿namespace ReservationsAPI.Contracts;
 
-namespace Domain.Abstractions.Contracts;
-
-public class PropertyDto
+public class PropertyResponse
 {
     public Guid Id { get; set; }
     public string Name { get; set; }
@@ -11,7 +9,15 @@ public class PropertyDto
     public string Address { get; set; }
     public decimal Latitude { get; set; }
     public decimal Longitude { get; set; }
-    public PropertyDto( Guid id, string name, string country, string city, string address, decimal latitude, decimal longitude )
+
+    public PropertyResponse(
+        Guid id,
+        string name,
+        string country,
+        string city,
+        string address,
+        decimal latitude,
+        decimal longitude )
     {
         Id = id;
         Name = name;

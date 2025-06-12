@@ -11,6 +11,8 @@ public class ReservationConfiguration : IEntityTypeConfiguration<Reservation>
         builder.ToTable( nameof( Reservation ) )
             .HasKey( r => r.Id );
 
+        builder.Property( r => r.PublicId );
+
         builder.Property( r => r.ArrivalDate )
             .IsRequired();
 
@@ -38,5 +40,8 @@ public class ReservationConfiguration : IEntityTypeConfiguration<Reservation>
         builder.Property( r => r.Currency )
             .HasMaxLength( 25 )
             .IsRequired();
+
+        builder.HasIndex( r => r.PublicId )
+             .IsUnique();
     }
 }

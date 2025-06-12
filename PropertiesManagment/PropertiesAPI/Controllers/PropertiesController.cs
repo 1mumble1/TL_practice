@@ -1,5 +1,5 @@
-﻿using Domain.Abstractions.Services;
-using Domain.Entities;
+﻿using Application.Abstractions;
+using Application.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using PropertiesAPI.Contracts.Property;
 
@@ -19,9 +19,9 @@ public class PropertiesController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAllProperties()
     {
-        List<Property> properties = await _propertiesService.GetAllProperties();
+        IReadOnlyList<PropertyDto> properties = await _propertiesService.GetAllProperties();
 
-        List<PropertyResponse> propertiesResponse = properties
+        IReadOnlyList<PropertyResponse> propertiesResponse = properties
             .Select( p => new PropertyResponse(
                 p.Id,
                 p.Name,
@@ -38,7 +38,7 @@ public class PropertiesController : ControllerBase
     [HttpGet( "{id:guid}" )]
     public async Task<IActionResult> GetPropertyById( [FromRoute] Guid id )
     {
-        Property? property = await _propertiesService.GetPropertyById( id );
+        PropertyDto? property = await _propertiesService.GetPropertyById( id );
         if ( property is null )
         {
             return NotFound();
@@ -81,7 +81,7 @@ public class PropertiesController : ControllerBase
     {
         try
         {
-            Guid result = await _propertiesService.UpdateProperty(
+            await _propertiesService.UpdateProperty(
                 id,
                 updatePropertyRequest.Name,
                 updatePropertyRequest.Country,
@@ -90,7 +90,7 @@ public class PropertiesController : ControllerBase
                 updatePropertyRequest.Latitude,
                 updatePropertyRequest.Longitude );
 
-            return Ok( result );
+            return Ok();
         }
         catch ( Exception ex )
         {
@@ -101,7 +101,7 @@ public class PropertiesController : ControllerBase
     [HttpDelete( "{id:guid}" )]
     public async Task<IActionResult> DeleteProperty( [FromRoute] Guid id )
     {
-        var result = await _propertiesService.DeleteProperty( id );
-        return Ok( result );
+        await _propertiesService.DeleteProperty( id );
+        return Ok();
     }
 }

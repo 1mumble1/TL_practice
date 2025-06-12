@@ -1,12 +1,9 @@
-﻿using System.Diagnostics.Metrics;
-using System.Net;
-using System.Xml.Linq;
-
-namespace Domain.Entities;
+﻿namespace Domain.Entities;
 
 public class Property
 {
-    public Guid Id { get; }
+    public Guid PublicId { get; }
+    public int Id { get; }
     public string Name { get; private set; }
     public string Country { get; private set; }
     public string City { get; private set; }
@@ -31,7 +28,7 @@ public class Property
         CheckCoordinate( latitude, -90, 90 );
         CheckCoordinate( longitude, -180, 180 );
 
-        Id = Guid.NewGuid();
+        PublicId = Guid.NewGuid();
         Name = name;
         Country = country;
         City = city;
@@ -40,19 +37,7 @@ public class Property
         Longitude = longitude;
     }
 
-    //public Property( Property anotherProperty )
-    //{
-    //    Id = anotherProperty.Id;
-    //    Name = anotherProperty.Name;
-    //    Country = anotherProperty.Country;
-    //    City = anotherProperty.City;
-    //    Address = anotherProperty.Address;
-    //    Latitude = anotherProperty.Latitude;
-    //    Longitude = anotherProperty.Longitude;
-    //}
-
-    public Property(
-        Guid id,
+    public void Update(
         string name,
         string country,
         string city,
@@ -67,7 +52,6 @@ public class Property
         CheckCoordinate( latitude, -90, 90 );
         CheckCoordinate( longitude, -180, 180 );
 
-        Id = id;
         Name = name;
         Country = country;
         City = city;

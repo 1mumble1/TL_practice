@@ -1,6 +1,6 @@
-﻿using Domain.Abstractions.Contracts;
+﻿using Application.Abstractions;
+using Application.Contracts;
 using Domain.Abstractions.Repositories;
-using Domain.Abstractions.Services;
 using Domain.Entities;
 
 namespace Application.Services;
@@ -21,18 +21,55 @@ public class ReservationsService : IReservationsService
         int? guests,
         decimal? maxDailyPrice )
     {
-        List<PropertyWithRoomTypesDto> result = await _reservationsRepository.SearchAvailable(
+        if ( arrivalDate.HasValue && !departureDate.HasValue ||
+            !arrivalDate.HasValue && departureDate.HasValue )
+        {
+            throw new ArgumentException( "Cannot search with only one date" );
+        }
+
+        IReadOnlyList<Property> properties = await _reservationsRepository.SearchAvailableProperties(
             city,
+            arrivalDate,
+            departureDate );
+
+        IReadOnlyList<RoomType> roomTypes = await _reservationsRepository.SearchAvailableRoomTypes(
             arrivalDate,
             departureDate,
             guests,
             maxDailyPrice );
-        return result;
+
+        return properties
+            .Select( p => new PropertyWithRoomTypesDto
+            {
+                Property = new PropertyDto(
+                    p.PublicId,
+                    p.Name,
+                    p.Country,
+                    p.City,
+                    p.Address,
+                    p.Latitude,
+                    p.Longitude ),
+                RoomTypes = roomTypes
+                    .Where( rt => rt.PropertyId == p.Id )
+                    .Select( rt => new RoomTypeDto(
+                        rt.PublicId,
+                        rt.Property.PublicId,
+                        rt.Name,
+                        rt.DailyPrice,
+                        rt.Currency,
+                        rt.MinPersonCount,
+                        rt.MaxPersonCount,
+                        rt.Services,
+                        rt.Amenities,
+                        rt.AvailableRooms ) )
+                    .ToList()
+            } )
+            .ToList();
     }
 
     public async Task<Guid> CreateReservation(
-        Guid propertyId,
-        Guid roomTypeId,
+        Guid propertyPublicId,
+        Guid roomTypePublicId,
         DateOnly arrivalDate,
         DateOnly departureDate,
         TimeOnly arrivalTime,
@@ -40,40 +77,51 @@ public class ReservationsService : IReservationsService
         string guestName,
         string guestPhoneNumber )
     {
-        try
+        if ( !await _reservationsRepository.ExistsProperty( propertyPublicId ) )
         {
-            if ( !await _reservationsRepository.ExistsProperty( propertyId ) )
-            {
-                throw new ArgumentException( $"Cannot found property with id {propertyId}" );
-            }
-            if ( !await _reservationsRepository.ExistsRoomType( roomTypeId ) )
-            {
-                throw new ArgumentException( $"Cannot found property with id {roomTypeId}" );
-            }
-            string currency = await _reservationsRepository.GetRoomTypeCurrency( roomTypeId );
-            decimal dailyPrice = await _reservationsRepository.GetRoomTypeDailyPrice( roomTypeId );
-            decimal total = CalculateTotal( dailyPrice, arrivalDate, arrivalTime, departureDate, departureTime );
-
-            Reservation reservation = new(
-                propertyId,
-                roomTypeId,
-                arrivalDate,
-                departureDate,
-                arrivalTime,
-                departureTime,
-                guestName,
-                guestPhoneNumber,
-                currency,
-                total );
-
-            Guid result = await _reservationsRepository.Create( reservation );
-
-            return result;
+            throw new ArgumentException( $"Cannot found property with id {propertyPublicId}" );
         }
-        catch ( Exception ex )
+
+        if ( !await _reservationsRepository.ExistsRoomType( roomTypePublicId ) )
         {
-            throw new InvalidOperationException( ex.Message );
+            throw new ArgumentException( $"Cannot found room type with id {roomTypePublicId}" );
         }
+
+        int propertyId = await _reservationsRepository.GetPropertyIdByPublicId( propertyPublicId );
+        int roomTypeId = await _reservationsRepository.GetRoomTypeIdByPublicId( roomTypePublicId );
+
+        if ( !( await _reservationsRepository
+                .GetAvailablePropertyIds( arrivalDate, departureDate ) )
+                .Contains( propertyId ) ||
+            !( await _reservationsRepository
+                .GetAvailableRoomTypesWithCounts( arrivalDate, departureDate ) )
+                .ContainsKey( roomTypeId ) )
+        {
+            throw new InvalidOperationException( "The reservation on this dates already exists" );
+        }
+
+        string currency = await _reservationsRepository.GetRoomTypeCurrency( roomTypeId );
+        decimal dailyPrice = await _reservationsRepository.GetRoomTypeDailyPrice( roomTypeId );
+        decimal total = CalculateTotal(
+            dailyPrice,
+            arrivalDate,
+            arrivalTime,
+            departureDate,
+            departureTime );
+
+        Reservation reservation = new(
+            propertyId,
+            roomTypeId,
+            arrivalDate,
+            departureDate,
+            arrivalTime,
+            departureTime,
+            guestName,
+            guestPhoneNumber,
+            currency,
+            total );
+
+        return await _reservationsRepository.Create( reservation );
     }
 
     private decimal CalculateTotal(
@@ -86,11 +134,10 @@ public class ReservationsService : IReservationsService
         DateTime arrival = arrivalDate.ToDateTime( arrivalTime );
         DateTime departure = departureDate.ToDateTime( departureTime );
 
-        decimal total = ( departure - arrival ).Days * dailyPrice;
-        return total;
+        return ( departure - arrival ).Days * dailyPrice;
     }
 
-    public async Task<List<Reservation>> GetAllReservations(
+    public async Task<IReadOnlyList<ReservationDto>> GetAllReservations(
         Guid? propertyId,
         Guid? roomTypeId,
         DateOnly? arrivalDate,
@@ -98,22 +145,55 @@ public class ReservationsService : IReservationsService
         string? guestName,
         string? guestPhoneNumber )
     {
-        return await _reservationsRepository.GetAll(
+        List<Reservation> reservations = await _reservationsRepository.GetAll(
             propertyId,
             roomTypeId,
             arrivalDate,
             departureDate,
             guestName,
             guestPhoneNumber );
+
+        return reservations
+            .Select( r => new ReservationDto(
+                r.PublicId,
+                r.Property.PublicId,
+                r.RoomType.PublicId,
+                r.ArrivalDate,
+                r.DepartureDate,
+                r.ArrivalTime,
+                r.DepartureTime,
+                r.GuestName,
+                r.GuestPhoneNumber,
+                r.Total,
+                r.Currency ) )
+            .ToList();
     }
 
-    public async Task<Reservation?> GetReservationById( Guid id )
+    public async Task<ReservationDto?> GetReservationById( Guid id )
     {
-        return await _reservationsRepository.GetById( id );
+        Reservation? reservation = await _reservationsRepository.GetById( id );
+
+        if ( reservation is null )
+        {
+            return null;
+        }
+
+        return new ReservationDto(
+            reservation.PublicId,
+            reservation.Property.PublicId,
+            reservation.RoomType.PublicId,
+            reservation.ArrivalDate,
+            reservation.DepartureDate,
+            reservation.ArrivalTime,
+            reservation.DepartureTime,
+            reservation.GuestName,
+            reservation.GuestPhoneNumber,
+            reservation.Total,
+            reservation.Currency );
     }
 
-    public async Task<Guid> DeleteReservation( Guid id )
+    public async Task DeleteReservation( Guid id )
     {
-        return await _reservationsRepository.Delete( id );
+        await _reservationsRepository.Delete( id );
     }
 }

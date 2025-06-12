@@ -11,6 +11,8 @@ public class PropertyConfiguration : IEntityTypeConfiguration<Property>
         builder.ToTable( nameof( Property ) )
             .HasKey( p => p.Id );
 
+        builder.Property( p => p.PublicId );
+
         builder.Property( p => p.Name )
             .HasMaxLength( 100 )
             .IsRequired();
@@ -44,5 +46,8 @@ public class PropertyConfiguration : IEntityTypeConfiguration<Property>
             .WithOne( r => r.Property )
             .HasForeignKey( r => r.PropertyId )
             .OnDelete( DeleteBehavior.Restrict );
+
+        builder.HasIndex( p => p.PublicId )
+            .IsUnique();
     }
 }

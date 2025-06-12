@@ -1,28 +1,27 @@
-﻿using Domain.Abstractions.Contracts;
-using Domain.Entities;
+﻿using Application.Contracts;
 
-namespace Domain.Abstractions.Services;
+namespace Application.Abstractions;
 
 public interface IReservationsService
 {
     Task<Guid> CreateReservation(
-        Guid propertyId,
-        Guid roomTypeId,
+        Guid propertyPublicId,
+        Guid roomTypePublicId,
         DateOnly arrivalDate,
         DateOnly departureDate,
         TimeOnly arrivalTime,
         TimeOnly departureTime,
         string guestName,
         string guestPhoneNumber );
-    Task<Guid> DeleteReservation( Guid id );
-    Task<List<Reservation>> GetAllReservations(
+    Task DeleteReservation( Guid id );
+    Task<IReadOnlyList<ReservationDto>> GetAllReservations(
         Guid? propertyId,
         Guid? roomTypeId,
         DateOnly? arrivalDate,
         DateOnly? departureDate,
         string? guestName,
         string? guestPhoneNumber );
-    Task<Reservation?> GetReservationById( Guid id );
+    Task<ReservationDto?> GetReservationById( Guid id );
     Task<List<PropertyWithRoomTypesDto>> SearchAvailableReservations(
         string? city,
         DateOnly? arrivalDate,

@@ -1,5 +1,4 @@
-﻿using Domain.Abstractions.Contracts;
-using Domain.Abstractions.Repositories;
+﻿using Domain.Abstractions.Repositories;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,92 +7,72 @@ namespace Infrastructure.Repositories;
 public class ReservationsRepository : IReservationsRepository
 {
     private readonly PropertiesDbContext _dbContext;
+
     public ReservationsRepository( PropertiesDbContext dbContext )
     {
         _dbContext = dbContext;
     }
 
-    public async Task<List<PropertyWithRoomTypesDto>> SearchAvailable(
+    public async Task<IReadOnlyList<Property>> SearchAvailableProperties(
         string? city,
+        DateOnly? arrivalDate,
+        DateOnly? departureDate )
+    {
+        IQueryable<Property> query = _dbContext.Properties.AsQueryable();
+
+        if ( !string.IsNullOrEmpty( city ) )
+        {
+            query = query.Where( p => p.City == city );
+        }
+
+        if ( arrivalDate.HasValue && departureDate.HasValue )
+        {
+            Dictionary<int, int> availableRoomTypes = await GetAvailableRoomTypesWithCounts( arrivalDate.Value, departureDate.Value );
+            List<RoomType> allRoomTypes = await _dbContext.RoomTypes.ToListAsync();
+            IEnumerable<int> propertyIdsWithAvailableRooms = allRoomTypes
+                .Where( rt => availableRoomTypes.ContainsKey( rt.Id ) )
+                .Select( rt => rt.PropertyId )
+                .Distinct();
+
+            query = query.Where( p => propertyIdsWithAvailableRooms.Contains( p.Id ) );
+        }
+
+        return await query.ToListAsync();
+    }
+
+    public async Task<IReadOnlyList<RoomType>> SearchAvailableRoomTypes(
         DateOnly? arrivalDate,
         DateOnly? departureDate,
         int? guests,
         decimal? maxDailyPrice )
     {
-        if ( arrivalDate.HasValue && !departureDate.HasValue ||
-            !arrivalDate.HasValue && departureDate.HasValue )
-        {
-            throw new ArgumentException( "Cannot search with only one date" );
-        }
-
-        // property by city
-        IQueryable<Property> propertiesQuery = city is null
-            ? _dbContext.Properties.AsQueryable()
-            : _dbContext.Properties.Where( p => p.City == city );
-
-        // room type by guests count
-        IQueryable<RoomType> roomTypesQuery = _dbContext.RoomTypes.AsQueryable();
+        IQueryable<RoomType> query = _dbContext.RoomTypes.AsQueryable();
 
         if ( guests.HasValue )
         {
-            roomTypesQuery = roomTypesQuery.Where( rt =>
-                rt.MinPersonCount <= guests && rt.MaxPersonCount >= guests );
+            query = query.Where( rt => rt.MinPersonCount <= guests && rt.MaxPersonCount >= guests );
         }
 
         if ( maxDailyPrice.HasValue )
         {
-            roomTypesQuery = roomTypesQuery.Where( rt => rt.DailyPrice <= maxDailyPrice );
+            query = query.Where( rt => rt.DailyPrice <= maxDailyPrice );
         }
 
-        // conflicting reservations if we have arrival and departure dates; else empty list
-        List<Reservation> conflictingReservations = arrivalDate.HasValue
-            ? await _dbContext.Reservations
-                .Where( r => r.ArrivalDate < departureDate && r.DepartureDate > arrivalDate )
-                .ToListAsync()
-            : new List<Reservation>();
+        List<RoomType> roomTypes = await query.ToListAsync();
 
-        // group
-        Dictionary<Guid, int> bookedRoomTypes = conflictingReservations
-            .GroupBy( r => r.RoomTypeId )
-            .ToDictionary( g => g.Key, g => g.Count() );
-
-        var allRoomTypes = await roomTypesQuery.ToListAsync();
-
-        var availableRoomTypes = allRoomTypes
-            .Where( rt =>
-            {
-                if ( !bookedRoomTypes.TryGetValue( rt.Id, out var bookedCount ) )
-                    return true;
-
-                return bookedCount < rt.AvailableRooms;
-            } )
-            .ToList();
-
-        var propertyIds = availableRoomTypes.Select( rt => rt.PropertyId ).Distinct();
-        var availableProperties = await propertiesQuery
-            .Where( p => propertyIds.Contains( p.Id ) )
-            .ToListAsync();
-
-        //List<Property> result = availableProperties
-        //    .Select( p => new Property(
-        //        p,
-        //        availableRoomTypes.Where( rt => rt.PropertyId == p.Id ).ToList() ) )
-        //    .ToList();
-
-        var result = availableProperties.Select( p => new PropertyWithRoomTypesDto
+        if ( !arrivalDate.HasValue || !departureDate.HasValue )
         {
-            Property = new PropertyDto(
-                p.Id,
-                p.Name,
-                p.Country,
-                p.City,
-                p.Address,
-                p.Latitude,
-                p.Longitude ),
-            RoomTypes = availableRoomTypes
-                .Where( rt => rt.PropertyId == p.Id )
-                .Select( rt => new RoomTypeDto(
-                    rt.Id,
+            return roomTypes;
+        }
+
+        Dictionary<int, int> availableRoomCounts = await GetAvailableRoomTypesWithCounts( arrivalDate.Value, departureDate.Value );
+
+        return roomTypes
+            .Where( rt => availableRoomCounts.ContainsKey( rt.Id ) )
+            .Select( rt =>
+            {
+                rt.Update(
+                    rt.PropertyId,
                     rt.Name,
                     rt.DailyPrice,
                     rt.Currency,
@@ -101,18 +80,62 @@ public class ReservationsRepository : IReservationsRepository
                     rt.MaxPersonCount,
                     rt.Services,
                     rt.Amenities,
-                    rt.AvailableRooms ) )
-                .ToList()
-        } ).ToList();
+                    availableRoomCounts[ rt.Id ] );
 
-        return result;
+                return rt;
+            } )
+            .Where( x => x.AvailableRooms > 0 )
+            .ToList();
+    }
+
+    public async Task<IEnumerable<int>> GetAvailablePropertyIds( DateOnly arrivalDate, DateOnly departureDate )
+    {
+        List<Reservation> conflictingReservations = await GetConflictingReservations( arrivalDate, departureDate );
+        Dictionary<int, int> bookedRoomTypes = GetBookedRoomTypes( conflictingReservations );
+        List<RoomType> allRoomTypes = await _dbContext.RoomTypes.ToListAsync();
+
+        return allRoomTypes
+            .Where( rt => !bookedRoomTypes.ContainsKey( rt.Id ) || bookedRoomTypes[ rt.Id ] < rt.AvailableRooms )
+            .Select( rt => rt.PropertyId )
+            .Distinct();
+    }
+
+    public async Task<Dictionary<int, int>> GetAvailableRoomTypesWithCounts(
+        DateOnly arrivalDate,
+        DateOnly departureDate )
+    {
+        List<Reservation> conflictingReservations = await GetConflictingReservations( arrivalDate, departureDate );
+        Dictionary<int, int> bookedRoomTypes = GetBookedRoomTypes( conflictingReservations );
+        List<RoomType> allRoomTypes = await _dbContext.RoomTypes.ToListAsync();
+
+        return allRoomTypes
+            .ToDictionary(
+                rt => rt.Id,
+                rt => rt.AvailableRooms - ( bookedRoomTypes.TryGetValue( rt.Id, out var booked ) ? booked : 0 )
+            )
+            .Where( kv => kv.Value > 0 )
+            .ToDictionary( kv => kv.Key, kv => kv.Value );
+    }
+
+    private async Task<List<Reservation>> GetConflictingReservations( DateOnly arrivalDate, DateOnly departureDate )
+    {
+        return await _dbContext.Reservations
+            .Where( r => r.ArrivalDate < departureDate && r.DepartureDate > arrivalDate )
+            .ToListAsync();
+    }
+
+    private Dictionary<int, int> GetBookedRoomTypes( List<Reservation> reservations )
+    {
+        return reservations
+            .GroupBy( r => r.RoomTypeId )
+            .ToDictionary( g => g.Key, g => g.Count() );
     }
 
     public async Task<Guid> Create( Reservation reservation )
     {
         await _dbContext.AddAsync( reservation );
         await _dbContext.SaveChangesAsync();
-        return reservation.Id;
+        return reservation.PublicId;
     }
 
     public async Task<List<Reservation>> GetAll(
@@ -123,27 +146,45 @@ public class ReservationsRepository : IReservationsRepository
         string? guestName,
         string? guestPhoneNumber )
     {
-        List<Reservation> result = await _dbContext.Reservations.AsNoTracking().ToListAsync();
+        List<Reservation> result = await _dbContext.Reservations
+            .AsNoTracking()
+            .Include( r => r.Property )
+            .Include( r => r.RoomType )
+            .ToListAsync();
+
         if ( propertyId.HasValue )
         {
-            result = result.Where( r => r.PropertyId == propertyId ).ToList();
+            Property? property = _dbContext.Properties.FirstOrDefault( p => p.PublicId == propertyId.Value );
+            if ( property is not null )
+            {
+                result = result.Where( r => r.PropertyId == property.Id ).ToList();
+            }
         }
+
         if ( roomTypeId.HasValue )
         {
-            result = result.Where( r => r.RoomTypeId == roomTypeId ).ToList();
+            RoomType? roomType = _dbContext.RoomTypes.FirstOrDefault( rt => rt.PublicId == roomTypeId.Value );
+            if ( roomType is not null )
+            {
+                result = result.Where( r => r.RoomTypeId == roomType.Id ).ToList();
+            }
         }
+
         if ( arrivalDate.HasValue )
         {
             result = result.Where( r => r.ArrivalDate == arrivalDate ).ToList();
         }
+
         if ( departureDate.HasValue )
         {
             result = result.Where( r => r.DepartureDate == departureDate ).ToList();
         }
+
         if ( guestName is not null )
         {
             result = result.Where( r => r.GuestName == guestName ).ToList();
         }
+
         if ( guestPhoneNumber is not null )
         {
             result = result.Where( r => r.GuestPhoneNumber == guestPhoneNumber ).ToList();
@@ -154,45 +195,62 @@ public class ReservationsRepository : IReservationsRepository
 
     public async Task<Reservation?> GetById( Guid id )
     {
-        Reservation? reservation = await _dbContext.Reservations.FirstOrDefaultAsync( r => r.Id == id );
-        return reservation;
+        return await _dbContext.Reservations.FirstOrDefaultAsync( r => r.PublicId == id );
     }
 
-    public async Task<Guid> Delete( Guid id )
+    public async Task Delete( Guid id )
     {
         await _dbContext.Reservations
-            .Where( r => r.Id == id )
+            .Where( r => r.PublicId == id )
             .ExecuteDeleteAsync();
-
-        return id;
     }
 
     public async Task<bool> ExistsProperty( Guid propertyId )
     {
-        return await _dbContext.Properties.FirstOrDefaultAsync( p => p.Id == propertyId ) is not null;
+        return await _dbContext.Properties.FirstOrDefaultAsync( p => p.PublicId == propertyId ) is not null;
     }
 
     public async Task<bool> ExistsRoomType( Guid roomTypeId )
     {
-        return await _dbContext.RoomTypes.FirstOrDefaultAsync( rt => rt.Id == roomTypeId ) is not null;
+        return await _dbContext.RoomTypes.FirstOrDefaultAsync( rt => rt.PublicId == roomTypeId ) is not null;
     }
 
-    public async Task<string> GetRoomTypeCurrency( Guid roomTypeId )
+    public async Task<int> GetPropertyIdByPublicId( Guid propertyPublicId )
+    {
+        Property? property = await _dbContext.Properties.FirstOrDefaultAsync( p => p.PublicId == propertyPublicId );
+        if ( property is null )
+        {
+            throw new InvalidOperationException( $"Not found property with id: {propertyPublicId}" );
+        }
+        return property.Id;
+    }
+
+    public async Task<int> GetRoomTypeIdByPublicId( Guid roomTypePublicId )
+    {
+        RoomType? roomType = await _dbContext.RoomTypes.FirstOrDefaultAsync( rt => rt.PublicId == roomTypePublicId );
+        if ( roomType is null )
+        {
+            throw new InvalidOperationException( $"Not found room type with id: {roomTypePublicId}" );
+        }
+        return roomType.Id;
+    }
+
+    public async Task<string> GetRoomTypeCurrency( int roomTypeId )
     {
         RoomType? roomType = await _dbContext.RoomTypes.FirstOrDefaultAsync( rt => rt.Id == roomTypeId );
         if ( roomType is null )
         {
-            throw new InvalidOperationException( $"Cannot find room type with id {roomTypeId}" );
+            throw new InvalidOperationException( $"Not found room type with id: {roomTypeId}" );
         }
         return roomType.Currency;
     }
 
-    public async Task<decimal> GetRoomTypeDailyPrice( Guid roomTypeId )
+    public async Task<decimal> GetRoomTypeDailyPrice( int roomTypeId )
     {
         RoomType? roomType = await _dbContext.RoomTypes.FirstOrDefaultAsync( rt => rt.Id == roomTypeId );
         if ( roomType is null )
         {
-            throw new InvalidOperationException( $"Cannot find room type with id {roomTypeId}" );
+            throw new InvalidOperationException( $"Not found room type with id: {roomTypeId}" );
         }
         return roomType.DailyPrice;
     }

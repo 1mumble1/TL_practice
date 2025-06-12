@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Infrastructure.Migrations
+namespace Infrastructure.Migrations.Migrations
 {
     /// <inheritdoc />
     public partial class InitialMigration : Migration
@@ -15,7 +15,9 @@ namespace Infrastructure.Migrations
                 name: "Property",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PublicId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Country = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     City = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
@@ -32,8 +34,10 @@ namespace Infrastructure.Migrations
                 name: "RoomType",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PropertyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PublicId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PropertyId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     DailyPrice = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
                     Currency = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
@@ -58,9 +62,11 @@ namespace Infrastructure.Migrations
                 name: "Reservation",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PropertyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    RoomTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PublicId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PropertyId = table.Column<int>(type: "int", nullable: false),
+                    RoomTypeId = table.Column<int>(type: "int", nullable: false),
                     ArrivalDate = table.Column<DateOnly>(type: "date", nullable: false),
                     DepartureDate = table.Column<DateOnly>(type: "date", nullable: false),
                     ArrivalTime = table.Column<TimeOnly>(type: "time", nullable: false),
@@ -88,9 +94,21 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Property_PublicId",
+                table: "Property",
+                column: "PublicId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Reservation_PropertyId",
                 table: "Reservation",
                 column: "PropertyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reservation_PublicId",
+                table: "Reservation",
+                column: "PublicId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reservation_RoomTypeId",
@@ -101,6 +119,12 @@ namespace Infrastructure.Migrations
                 name: "IX_RoomType_PropertyId",
                 table: "RoomType",
                 column: "PropertyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RoomType_PublicId",
+                table: "RoomType",
+                column: "PublicId",
+                unique: true);
         }
 
         /// <inheritdoc />

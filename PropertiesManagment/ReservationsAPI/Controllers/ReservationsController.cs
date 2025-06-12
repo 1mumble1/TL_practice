@@ -1,5 +1,5 @@
-﻿using Domain.Abstractions.Services;
-using Domain.Entities;
+﻿using Application.Abstractions;
+using Application.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using ReservationsAPI.Contracts;
 
@@ -24,13 +24,50 @@ public class ReservationsController : ControllerBase
         [FromQuery] int? guests,
         [FromQuery] decimal? maxDailyPrice )
     {
-        List<Domain.Abstractions.Contracts.PropertyWithRoomTypesDto> result = await _reservationsService.SearchAvailableReservations(
+        try
+        {
+            List<PropertyWithRoomTypesDto> availableReservations = await _reservationsService.SearchAvailableReservations(
             city,
             arrivalDate,
             departureDate,
             guests,
             maxDailyPrice );
-        return Ok( result );
+
+            List<PropertyWithRoomTypesResponse> availableReservationsResponse = availableReservations
+                .Select( r => new PropertyWithRoomTypesResponse
+                {
+                    Property = new PropertyResponse(
+                    r.Property.Id,
+                    r.Property.Name,
+                    r.Property.Country,
+                    r.Property.City,
+                    r.Property.Address,
+                    r.Property.Latitude,
+                    r.Property.Longitude
+                    ),
+                    RoomTypes = r.RoomTypes
+                        .Where( rt => rt.PropertyId == r.Property.Id )
+                        .Select( rt => new RoomTypeResponse(
+                            rt.Id,
+                            rt.PropertyId,
+                            rt.Name,
+                            rt.DailyPrice,
+                            rt.Currency,
+                            rt.MinPersonCount,
+                            rt.MaxPersonCount,
+                            rt.Services,
+                            rt.Amenities,
+                            rt.AvailableRooms ) )
+                        .ToList()
+                } )
+                .ToList();
+
+            return Ok( availableReservationsResponse );
+        }
+        catch ( Exception ex )
+        {
+            return BadRequest( ex.Message );
+        }
     }
 
     [HttpPost( "reservations" )]
@@ -65,7 +102,7 @@ public class ReservationsController : ControllerBase
         [FromQuery] string? guestName,
         [FromQuery] string? guestPhoneNumber )
     {
-        List<Reservation> reservations = await _reservationsService.GetAllReservations(
+        IReadOnlyList<ReservationDto> reservations = await _reservationsService.GetAllReservations(
             propertyId,
             roomTypeId,
             arrivalDate,
@@ -73,7 +110,7 @@ public class ReservationsController : ControllerBase
             guestName,
             guestPhoneNumber );
 
-        List<ReservationResponse> reservationsResponse = reservations
+        IReadOnlyList<ReservationResponse> reservationsResponse = reservations
             .Select( r => new ReservationResponse(
                 r.Id,
                 r.PropertyId,
@@ -94,7 +131,7 @@ public class ReservationsController : ControllerBase
     [HttpGet( "reservations/{id:guid}" )]
     public async Task<IActionResult> GetReservationById( [FromRoute] Guid id )
     {
-        var reservation = await _reservationsService.GetReservationById( id );
+        ReservationDto? reservation = await _reservationsService.GetReservationById( id );
         if ( reservation is null )
         {
             return NotFound();
@@ -119,7 +156,7 @@ public class ReservationsController : ControllerBase
     [HttpDelete( "reservations/{id:guid}" )]
     public async Task<IActionResult> DeleteReservationById( [FromRoute] Guid id )
     {
-        var result = await _reservationsService.DeleteReservation( id );
-        return Ok( result );
+        await _reservationsService.DeleteReservation( id );
+        return Ok();
     }
 }

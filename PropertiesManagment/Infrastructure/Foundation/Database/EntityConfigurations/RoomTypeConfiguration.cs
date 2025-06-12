@@ -11,6 +11,8 @@ public class RoomTypeConfiguratuion : IEntityTypeConfiguration<RoomType>
         builder.ToTable( nameof( RoomType ) )
             .HasKey( rt => rt.Id );
 
+        builder.Property( rt => rt.PublicId );
+
         builder.Property( rt => rt.Name )
             .HasMaxLength( 100 )
             .IsRequired();
@@ -44,5 +46,8 @@ public class RoomTypeConfiguratuion : IEntityTypeConfiguration<RoomType>
             .WithOne( r => r.RoomType )
             .HasForeignKey( r => r.RoomTypeId )
             .OnDelete( DeleteBehavior.Restrict );
+
+        builder.HasIndex( rt => rt.PublicId )
+            .IsUnique();
     }
 }
