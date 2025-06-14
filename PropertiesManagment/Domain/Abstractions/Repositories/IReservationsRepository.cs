@@ -8,7 +8,7 @@ public interface IReservationsRepository
     Task Delete( Guid id );
     Task<bool> ExistsProperty( Guid propertyId );
     Task<bool> ExistsRoomType( Guid roomTypeId );
-    Task<List<Reservation>> GetAll(
+    Task<IReadOnlyList<Reservation>> GetAll(
         Guid? propertyId,
         Guid? roomTypeId,
         DateOnly? arrivalDate,
@@ -32,7 +32,7 @@ public interface IReservationsRepository
     Task<IEnumerable<int>> GetAvailablePropertyIds(
         DateOnly arrivalDate,
         DateOnly departureDate );
-    Task<Dictionary<int, int>> GetAvailableRoomTypesWithCounts(
+    Task<IReadOnlyDictionary<int, int>> GetAvailableRoomTypesWithCounts(
             DateOnly arrivalDate,
             DateOnly departureDate );
 }

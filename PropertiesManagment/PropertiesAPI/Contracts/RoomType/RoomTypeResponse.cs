@@ -1,6 +1,6 @@
 ﻿namespace PropertiesAPI.Contracts.RoomType;
 
-public class RoomTypeResponse
+public record RoomTypeResponse
 {
     public Guid Id { get; set; }
     public Guid PropertyId { get; set; }

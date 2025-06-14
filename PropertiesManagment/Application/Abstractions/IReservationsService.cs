@@ -14,18 +14,7 @@ public interface IReservationsService
         string guestName,
         string guestPhoneNumber );
     Task DeleteReservation( Guid id );
-    Task<IReadOnlyList<ReservationDto>> GetAllReservations(
-        Guid? propertyId,
-        Guid? roomTypeId,
-        DateOnly? arrivalDate,
-        DateOnly? departureDate,
-        string? guestName,
-        string? guestPhoneNumber );
+    Task<IReadOnlyList<ReservationDto>> GetAllReservations( FilterParamsQuery filterParamsQuery );
     Task<ReservationDto?> GetReservationById( Guid id );
-    Task<List<PropertyWithRoomTypesDto>> SearchAvailableReservations(
-        string? city,
-        DateOnly? arrivalDate,
-        DateOnly? departureDate,
-        int? guests,
-        decimal? maxDailyPrice );
+    Task<IReadOnlyList<PropertyWithRoomTypesDto>> SearchAvailableReservations( SearchParamsQuery searchParamsQuery );
 }

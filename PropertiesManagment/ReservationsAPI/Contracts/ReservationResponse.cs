@@ -1,6 +1,6 @@
 ﻿namespace ReservationsAPI.Contracts;
 
-public class ReservationResponse
+public record ReservationResponse
 {
     public Guid Id { get; set; }
     public Guid PropertyId { get; set; }

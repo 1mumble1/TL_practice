@@ -17,26 +17,14 @@ public class RoomTypesController : ControllerBase
         _roomTypesService = roomTypesService;
     }
 
-    [HttpGet( "properties/{propertyId:guid}/roomtypes" )]
+    [HttpGet( "properties/{propertyId:guid}/roomTypes" )]
     public async Task<IActionResult> GetAllRoomTypesByPropertyId( [FromRoute] Guid propertyId )
     {
         try
         {
             IReadOnlyList<RoomTypeDto> roomTypes = await _roomTypesService.GetAllRoomTypesByPropertyId( propertyId );
 
-            IReadOnlyList<RoomTypeResponse> roomTypesResponse = roomTypes
-                .Select( rt => new RoomTypeResponse(
-                    rt.Id,
-                    rt.PropertyId,
-                    rt.Name,
-                    rt.DailyPrice,
-                    rt.Currency,
-                    rt.MinPersonCount,
-                    rt.MaxPersonCount,
-                    rt.Services,
-                    rt.Amenities,
-                    rt.AvailableRooms ) )
-                .ToList();
+            IReadOnlyList<RoomTypeResponse> roomTypesResponse = Mappers.Mappers.Map( roomTypes );
 
             return Ok( roomTypesResponse );
         }
@@ -46,7 +34,7 @@ public class RoomTypesController : ControllerBase
         }
     }
 
-    [HttpGet( "roomtypes/{id:guid}" )]
+    [HttpGet( "roomTypes/{id:guid}" )]
     public async Task<IActionResult> GetRoomTypeById( [FromRoute] Guid id )
     {
         RoomTypeDto? roomType = await _roomTypesService.GetRoomTypeById( id );
@@ -56,22 +44,12 @@ public class RoomTypesController : ControllerBase
             return NotFound();
         }
 
-        RoomTypeResponse roomTypeResonse = new(
-            roomType.Id,
-            roomType.PropertyId,
-            roomType.Name,
-            roomType.DailyPrice,
-            roomType.Currency,
-            roomType.MinPersonCount,
-            roomType.MaxPersonCount,
-            roomType.Services,
-            roomType.Amenities,
-            roomType.AvailableRooms );
+        RoomTypeResponse roomTypeResonse = Mappers.Mappers.Map( roomType );
 
         return Ok( roomTypeResonse );
     }
 
-    [HttpPost( "properties/{propertyId:guid}/roomtype" )]
+    [HttpPost( "properties/{propertyId:guid}/roomType" )]
     public async Task<IActionResult> CreateRoomTypeByPropertyId( [FromRoute] Guid propertyId, [FromBody] CreateRoomTypeRequest createRoomTypeRequest )
     {
         try
@@ -94,7 +72,7 @@ public class RoomTypesController : ControllerBase
         }
     }
 
-    [HttpPut( "roomtypes/{id:guid}" )]
+    [HttpPut( "roomTypes/{id:guid}" )]
     public async Task<IActionResult> UpdateRoomTypeById( [FromRoute] Guid id, [FromBody] UpdateRoomTypeRequest updateRoomTypeRequest )
     {
         try
@@ -119,7 +97,7 @@ public class RoomTypesController : ControllerBase
         }
     }
 
-    [HttpDelete( "roomtypes/{id:guid}" )]
+    [HttpDelete( "roomTypes/{id:guid}" )]
     public async Task<IActionResult> DeleteRoomTypeById( [FromRoute] Guid id )
     {
         await _roomTypesService.DeleteRoomType( id );

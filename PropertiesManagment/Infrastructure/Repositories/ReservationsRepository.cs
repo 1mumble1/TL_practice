@@ -27,7 +27,7 @@ public class ReservationsRepository : IReservationsRepository
 
         if ( arrivalDate.HasValue && departureDate.HasValue )
         {
-            Dictionary<int, int> availableRoomTypes = await GetAvailableRoomTypesWithCounts( arrivalDate.Value, departureDate.Value );
+            IReadOnlyDictionary<int, int> availableRoomTypes = await GetAvailableRoomTypesWithCounts( arrivalDate.Value, departureDate.Value );
             List<RoomType> allRoomTypes = await _dbContext.RoomTypes.ToListAsync();
             IEnumerable<int> propertyIdsWithAvailableRooms = allRoomTypes
                 .Where( rt => availableRoomTypes.ContainsKey( rt.Id ) )
@@ -65,7 +65,7 @@ public class ReservationsRepository : IReservationsRepository
             return roomTypes;
         }
 
-        Dictionary<int, int> availableRoomCounts = await GetAvailableRoomTypesWithCounts( arrivalDate.Value, departureDate.Value );
+        IReadOnlyDictionary<int, int> availableRoomCounts = await GetAvailableRoomTypesWithCounts( arrivalDate.Value, departureDate.Value );
 
         return roomTypes
             .Where( rt => availableRoomCounts.ContainsKey( rt.Id ) )
@@ -90,7 +90,7 @@ public class ReservationsRepository : IReservationsRepository
 
     public async Task<IEnumerable<int>> GetAvailablePropertyIds( DateOnly arrivalDate, DateOnly departureDate )
     {
-        List<Reservation> conflictingReservations = await GetConflictingReservations( arrivalDate, departureDate );
+        IReadOnlyList<Reservation> conflictingReservations = await GetConflictingReservations( arrivalDate, departureDate );
         Dictionary<int, int> bookedRoomTypes = GetBookedRoomTypes( conflictingReservations );
         List<RoomType> allRoomTypes = await _dbContext.RoomTypes.ToListAsync();
 
@@ -100,11 +100,11 @@ public class ReservationsRepository : IReservationsRepository
             .Distinct();
     }
 
-    public async Task<Dictionary<int, int>> GetAvailableRoomTypesWithCounts(
+    public async Task<IReadOnlyDictionary<int, int>> GetAvailableRoomTypesWithCounts(
         DateOnly arrivalDate,
         DateOnly departureDate )
     {
-        List<Reservation> conflictingReservations = await GetConflictingReservations( arrivalDate, departureDate );
+        IReadOnlyList<Reservation> conflictingReservations = await GetConflictingReservations( arrivalDate, departureDate );
         Dictionary<int, int> bookedRoomTypes = GetBookedRoomTypes( conflictingReservations );
         List<RoomType> allRoomTypes = await _dbContext.RoomTypes.ToListAsync();
 
@@ -117,14 +117,14 @@ public class ReservationsRepository : IReservationsRepository
             .ToDictionary( kv => kv.Key, kv => kv.Value );
     }
 
-    private async Task<List<Reservation>> GetConflictingReservations( DateOnly arrivalDate, DateOnly departureDate )
+    private async Task<IReadOnlyList<Reservation>> GetConflictingReservations( DateOnly arrivalDate, DateOnly departureDate )
     {
         return await _dbContext.Reservations
             .Where( r => r.ArrivalDate < departureDate && r.DepartureDate > arrivalDate )
             .ToListAsync();
     }
 
-    private Dictionary<int, int> GetBookedRoomTypes( List<Reservation> reservations )
+    private Dictionary<int, int> GetBookedRoomTypes( IReadOnlyList<Reservation> reservations )
     {
         return reservations
             .GroupBy( r => r.RoomTypeId )
@@ -138,7 +138,7 @@ public class ReservationsRepository : IReservationsRepository
         return reservation.PublicId;
     }
 
-    public async Task<List<Reservation>> GetAll(
+    public async Task<IReadOnlyList<Reservation>> GetAll(
         Guid? propertyId,
         Guid? roomTypeId,
         DateOnly? arrivalDate,
@@ -195,7 +195,10 @@ public class ReservationsRepository : IReservationsRepository
 
     public async Task<Reservation?> GetById( Guid id )
     {
-        return await _dbContext.Reservations.FirstOrDefaultAsync( r => r.PublicId == id );
+        return await _dbContext.Reservations
+            .Include( r => r.Property )
+            .Include( r => r.RoomType )
+            .FirstOrDefaultAsync( r => r.PublicId == id );
     }
 
     public async Task Delete( Guid id )

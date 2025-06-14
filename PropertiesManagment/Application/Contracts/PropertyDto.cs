@@ -1,6 +1,6 @@
 ﻿namespace Application.Contracts;
 
-public class PropertyDto
+public record PropertyDto
 {
     public Guid Id { get; set; }
     public string Name { get; set; }

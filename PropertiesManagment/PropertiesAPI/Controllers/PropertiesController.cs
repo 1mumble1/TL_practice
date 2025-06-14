@@ -21,16 +21,7 @@ public class PropertiesController : ControllerBase
     {
         IReadOnlyList<PropertyDto> properties = await _propertiesService.GetAllProperties();
 
-        IReadOnlyList<PropertyResponse> propertiesResponse = properties
-            .Select( p => new PropertyResponse(
-                p.Id,
-                p.Name,
-                p.Country,
-                p.City,
-                p.Address,
-                p.Latitude,
-                p.Longitude ) )
-            .ToList();
+        IReadOnlyList<PropertyResponse> propertiesResponse = Mappers.Mappers.Map( properties );
 
         return Ok( propertiesResponse );
     }
@@ -44,14 +35,7 @@ public class PropertiesController : ControllerBase
             return NotFound();
         }
 
-        PropertyResponse propertyResponse = new(
-            property.Id,
-            property.Name,
-            property.Country,
-            property.City,
-            property.Address,
-            property.Latitude,
-            property.Longitude );
+        PropertyResponse propertyResponse = Mappers.Mappers.Map( property );
 
         return Ok( propertyResponse );
     }

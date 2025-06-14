@@ -26,41 +26,14 @@ public class ReservationsController : ControllerBase
     {
         try
         {
-            List<PropertyWithRoomTypesDto> availableReservations = await _reservationsService.SearchAvailableReservations(
-            city,
-            arrivalDate,
-            departureDate,
-            guests,
-            maxDailyPrice );
+            IReadOnlyList<PropertyWithRoomTypesDto> availableReservations = await _reservationsService.SearchAvailableReservations( new SearchParamsQuery(
+                city,
+                arrivalDate,
+                departureDate,
+                guests,
+                maxDailyPrice ) );
 
-            List<PropertyWithRoomTypesResponse> availableReservationsResponse = availableReservations
-                .Select( r => new PropertyWithRoomTypesResponse
-                {
-                    Property = new PropertyResponse(
-                    r.Property.Id,
-                    r.Property.Name,
-                    r.Property.Country,
-                    r.Property.City,
-                    r.Property.Address,
-                    r.Property.Latitude,
-                    r.Property.Longitude
-                    ),
-                    RoomTypes = r.RoomTypes
-                        .Where( rt => rt.PropertyId == r.Property.Id )
-                        .Select( rt => new RoomTypeResponse(
-                            rt.Id,
-                            rt.PropertyId,
-                            rt.Name,
-                            rt.DailyPrice,
-                            rt.Currency,
-                            rt.MinPersonCount,
-                            rt.MaxPersonCount,
-                            rt.Services,
-                            rt.Amenities,
-                            rt.AvailableRooms ) )
-                        .ToList()
-                } )
-                .ToList();
+            IReadOnlyList<PropertyWithRoomTypesResponse> availableReservationsResponse = Mappers.Mappers.Map( availableReservations );
 
             return Ok( availableReservationsResponse );
         }
@@ -102,28 +75,14 @@ public class ReservationsController : ControllerBase
         [FromQuery] string? guestName,
         [FromQuery] string? guestPhoneNumber )
     {
-        IReadOnlyList<ReservationDto> reservations = await _reservationsService.GetAllReservations(
-            propertyId,
+        IReadOnlyList<ReservationDto> reservations = await _reservationsService.GetAllReservations( new FilterParamsQuery( propertyId,
             roomTypeId,
             arrivalDate,
             departureDate,
             guestName,
-            guestPhoneNumber );
+            guestPhoneNumber ) );
 
-        IReadOnlyList<ReservationResponse> reservationsResponse = reservations
-            .Select( r => new ReservationResponse(
-                r.Id,
-                r.PropertyId,
-                r.RoomTypeId,
-                r.ArrivalDate,
-                r.DepartureDate,
-                r.ArrivalTime,
-                r.DepartureTime,
-                r.GuestName,
-                r.GuestPhoneNumber,
-                r.Total,
-                r.Currency ) )
-            .ToList();
+        IReadOnlyList<ReservationResponse> reservationsResponse = Mappers.Mappers.Map( reservations );
 
         return Ok( reservationsResponse );
     }
@@ -137,18 +96,7 @@ public class ReservationsController : ControllerBase
             return NotFound();
         }
 
-        ReservationResponse reservationResponse = new(
-            reservation.Id,
-            reservation.PropertyId,
-            reservation.RoomTypeId,
-            reservation.ArrivalDate,
-            reservation.DepartureDate,
-            reservation.ArrivalTime,
-            reservation.DepartureTime,
-            reservation.GuestName,
-            reservation.GuestPhoneNumber,
-            reservation.Total,
-            reservation.Currency );
+        ReservationResponse reservationResponse = Mappers.Mappers.Map( reservation );
 
         return Ok( reservationResponse );
     }

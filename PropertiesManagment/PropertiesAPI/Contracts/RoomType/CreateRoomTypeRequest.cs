@@ -1,6 +1,6 @@
 ﻿namespace PropertiesAPI.Contracts.RoomType;
 
-public class CreateRoomTypeRequest
+public record CreateRoomTypeRequest
 {
     public string Name { get; set; }
     public decimal DailyPrice { get; set; }

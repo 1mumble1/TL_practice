@@ -1,6 +1,6 @@
 ﻿namespace PropertiesAPI.Contracts.RoomType;
 
-public class UpdateRoomTypeRequest
+public record UpdateRoomTypeRequest
 {
     public Guid PropertyId { get; set; }
     public string Name { get; set; }

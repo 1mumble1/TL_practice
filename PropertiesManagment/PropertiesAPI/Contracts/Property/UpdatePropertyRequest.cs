@@ -1,6 +1,6 @@
 ﻿namespace PropertiesAPI.Contracts.Property;
 
-public class UpdatePropertyRequest
+public record UpdatePropertyRequest
 {
     public string Name { get; set; }
     public string Country { get; set; }

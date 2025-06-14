@@ -1,6 +1,6 @@
 ﻿namespace PropertiesAPI.Contracts.Property;
 
-public class PropertyResponse
+public record PropertyResponse
 {
     public Guid Id { get; set; }
     public string Name { get; set; }

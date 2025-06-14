@@ -1,6 +1,6 @@
 ﻿namespace Application.Contracts;
 
-public class RoomTypeDto
+public record RoomTypeDto
 {
     public Guid Id { get; set; }
     public Guid PropertyId { get; set; }

@@ -1,6 +1,6 @@
 ﻿namespace Application.Contracts;
 
-public class ReservationDto
+public record ReservationDto
 {
     public Guid Id { get; set; }
     public Guid PropertyId { get; set; }

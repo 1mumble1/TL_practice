@@ -14,13 +14,10 @@ public class ReservationsService : IReservationsService
         _reservationsRepository = reservationsRepository;
     }
 
-    public async Task<List<PropertyWithRoomTypesDto>> SearchAvailableReservations(
-        string? city,
-        DateOnly? arrivalDate,
-        DateOnly? departureDate,
-        int? guests,
-        decimal? maxDailyPrice )
+    public async Task<IReadOnlyList<PropertyWithRoomTypesDto>> SearchAvailableReservations( SearchParamsQuery searchParamsQuery )
     {
+        (string? city, DateOnly? arrivalDate, DateOnly? departureDate, int? guests, decimal? maxDailyPrice) = searchParamsQuery;
+
         if ( arrivalDate.HasValue && !departureDate.HasValue ||
             !arrivalDate.HasValue && departureDate.HasValue )
         {
@@ -40,8 +37,8 @@ public class ReservationsService : IReservationsService
 
         return properties
             .Select( p => new PropertyWithRoomTypesDto
-            {
-                Property = new PropertyDto(
+            (
+                new PropertyDto(
                     p.PublicId,
                     p.Name,
                     p.Country,
@@ -49,7 +46,7 @@ public class ReservationsService : IReservationsService
                     p.Address,
                     p.Latitude,
                     p.Longitude ),
-                RoomTypes = roomTypes
+                roomTypes
                     .Where( rt => rt.PropertyId == p.Id )
                     .Select( rt => new RoomTypeDto(
                         rt.PublicId,
@@ -63,7 +60,7 @@ public class ReservationsService : IReservationsService
                         rt.Amenities,
                         rt.AvailableRooms ) )
                     .ToList()
-            } )
+            ) )
             .ToList();
     }
 
@@ -138,14 +135,11 @@ public class ReservationsService : IReservationsService
     }
 
     public async Task<IReadOnlyList<ReservationDto>> GetAllReservations(
-        Guid? propertyId,
-        Guid? roomTypeId,
-        DateOnly? arrivalDate,
-        DateOnly? departureDate,
-        string? guestName,
-        string? guestPhoneNumber )
+        FilterParamsQuery filterParamsQuery )
     {
-        List<Reservation> reservations = await _reservationsRepository.GetAll(
+        (Guid? propertyId, Guid? roomTypeId, DateOnly? arrivalDate, DateOnly? departureDate, string? guestName, string? guestPhoneNumber) = filterParamsQuery;
+
+        IReadOnlyList<Reservation> reservations = await _reservationsRepository.GetAll(
             propertyId,
             roomTypeId,
             arrivalDate,
