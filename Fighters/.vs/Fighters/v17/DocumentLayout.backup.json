@@ -3,12 +3,44 @@
   "WorkspaceRootPath": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A981682E-62C3-4FC0-805E-70269280575A}|Fighters.Tests\\Fighters.Tests.csproj|c:\\mrt47\\tl_practice\\homeworks\\fighters\\fighters.tests\\application\\gamemaster.tests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A981682E-62C3-4FC0-805E-70269280575A}|Fighters.Tests\\Fighters.Tests.csproj|solutionrelative:fighters.tests\\application\\gamemaster.tests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A981682E-62C3-4FC0-805E-70269280575A}|Fighters.Tests\\Fighters.Tests.csproj|c:\\mrt47\\tl_practice\\homeworks\\fighters\\fighters.tests\\application\\fightersreader.tests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A981682E-62C3-4FC0-805E-70269280575A}|Fighters.Tests\\Fighters.Tests.csproj|solutionrelative:fighters.tests\\application\\fightersreader.tests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A981682E-62C3-4FC0-805E-70269280575A}|Fighters.Tests\\Fighters.Tests.csproj|c:\\mrt47\\tl_practice\\homeworks\\fighters\\fighters.tests\\application\\factory\\fightersfactory.tests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A981682E-62C3-4FC0-805E-70269280575A}|Fighters.Tests\\Fighters.Tests.csproj|solutionrelative:fighters.tests\\application\\factory\\fightersfactory.tests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|c:\\mrt47\\tl_practice\\homeworks\\fighters\\fighters\\application\\factory\\fightersfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|solutionrelative:fighters\\application\\factory\\fightersfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|c:\\mrt47\\tl_practice\\homeworks\\fighters\\fighters\\application\\factory\\abstractfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|solutionrelative:fighters\\application\\factory\\abstractfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A981682E-62C3-4FC0-805E-70269280575A}|Fighters.Tests\\Fighters.Tests.csproj|c:\\mrt47\\tl_practice\\homeworks\\fighters\\fighters.tests\\models\\fighters\\fighter.tests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A981682E-62C3-4FC0-805E-70269280575A}|Fighters.Tests\\Fighters.Tests.csproj|solutionrelative:fighters.tests\\models\\fighters\\fighter.tests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|c:\\mrt47\\tl_practice\\homeworks\\fighters\\fighters\\application\\gamemaster.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|solutionrelative:fighters\\application\\gamemaster.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|c:\\mrt47\\tl_practice\\homeworks\\fighters\\fighters\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|solutionrelative:fighters\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|c:\\mrt47\\tl_practice\\homeworks\\fighters\\fighters\\application\\fightersreader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|solutionrelative:fighters\\application\\fightersreader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|c:\\mrt47\\tl_practice\\homeworks\\fighters\\fighters\\models\\fighters\\fighter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|solutionrelative:fighters\\models\\fighters\\fighter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|c:\\mrt47\\tl_practice\\homeworks\\fighters\\fighters\\application\\factory\\ifactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B705E4D5-B279-446C-BAB8-CE3FA244F360}|Fighters\\Fighters.csproj|solutionrelative:fighters\\application\\factory\\ifactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,7 +50,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 34,
+          "SelectedChildIndex": 39,
           "Children": [
             {
               "$type": "Bookmark",
@@ -158,29 +190,131 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Program.cs",
+              "RelativeDocumentMoniker": "Fighters\\Program.cs",
+              "ToolTip": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Program.cs",
+              "RelativeToolTip": "Fighters\\Program.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAxwA0AAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-15T10:34:12.867Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "GameMaster.cs",
+              "DocumentMoniker": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Application\\GameMaster.cs",
+              "RelativeDocumentMoniker": "Fighters\\Application\\GameMaster.cs",
+              "ToolTip": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Application\\GameMaster.cs",
+              "RelativeToolTip": "Fighters\\Application\\GameMaster.cs",
+              "ViewState": "AgIAADAAAAAAAAAAAAAAACwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-15T10:19:45.368Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Fighter.Tests.cs",
+              "DocumentMoniker": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters.Tests\\Models\\Fighters\\Fighter.Tests.cs",
+              "RelativeDocumentMoniker": "Fighters.Tests\\Models\\Fighters\\Fighter.Tests.cs",
+              "ToolTip": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters.Tests\\Models\\Fighters\\Fighter.Tests.cs",
+              "RelativeToolTip": "Fighters.Tests\\Models\\Fighters\\Fighter.Tests.cs",
+              "ViewState": "AgIAAFgAAAAAAAAAAAAcwFwAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-14T21:16:39.284Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Fighter.cs",
+              "DocumentMoniker": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Models\\Fighters\\Fighter.cs",
+              "RelativeDocumentMoniker": "Fighters\\Models\\Fighters\\Fighter.cs",
+              "ToolTip": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Models\\Fighters\\Fighter.cs",
+              "RelativeToolTip": "Fighters\\Models\\Fighters\\Fighter.cs",
+              "ViewState": "AgIAAC8AAAAAAAAAAAAswD0AAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-14T21:15:58.406Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "FightersFactory.Tests.cs",
+              "DocumentMoniker": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters.Tests\\Application\\Factory\\FightersFactory.Tests.cs",
+              "RelativeDocumentMoniker": "Fighters.Tests\\Application\\Factory\\FightersFactory.Tests.cs",
+              "ToolTip": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters.Tests\\Application\\Factory\\FightersFactory.Tests.cs",
+              "RelativeToolTip": "Fighters.Tests\\Application\\Factory\\FightersFactory.Tests.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAALoAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-14T21:15:50.574Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "GameMaster.Tests.cs",
+              "DocumentMoniker": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters.Tests\\Application\\GameMaster.Tests.cs",
+              "RelativeDocumentMoniker": "Fighters.Tests\\Application\\GameMaster.Tests.cs",
+              "ToolTip": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters.Tests\\Application\\GameMaster.Tests.cs",
+              "RelativeToolTip": "Fighters.Tests\\Application\\GameMaster.Tests.cs",
+              "ViewState": "AgIAAMIAAAAAAAAAAADwv9AAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-14T21:15:35.212Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "FightersReader.Tests.cs",
+              "DocumentMoniker": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters.Tests\\Application\\FightersReader.Tests.cs",
+              "RelativeDocumentMoniker": "Fighters.Tests\\Application\\FightersReader.Tests.cs",
+              "ToolTip": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters.Tests\\Application\\FightersReader.Tests.cs",
+              "RelativeToolTip": "Fighters.Tests\\Application\\FightersReader.Tests.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAIIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-14T21:15:13.699Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "FightersReader.cs",
+              "DocumentMoniker": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Application\\FightersReader.cs",
+              "RelativeDocumentMoniker": "Fighters\\Application\\FightersReader.cs",
+              "ToolTip": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Application\\FightersReader.cs",
+              "RelativeToolTip": "Fighters\\Application\\FightersReader.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAwAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-14T21:13:22.11Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "FightersFactory.cs",
               "DocumentMoniker": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Application\\Factory\\FightersFactory.cs",
               "RelativeDocumentMoniker": "Fighters\\Application\\Factory\\FightersFactory.cs",
               "ToolTip": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Application\\Factory\\FightersFactory.cs",
               "RelativeToolTip": "Fighters\\Application\\Factory\\FightersFactory.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAhAAAAAAAAAA==",
+              "ViewState": "AgIAACIAAAAAAAAAAAAgwCEAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-23T22:00:28.734Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "AbstractFactory.cs",
-              "DocumentMoniker": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Application\\Factory\\AbstractFactory.cs",
-              "RelativeDocumentMoniker": "Fighters\\Application\\Factory\\AbstractFactory.cs",
-              "ToolTip": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Application\\Factory\\AbstractFactory.cs",
-              "RelativeToolTip": "Fighters\\Application\\Factory\\AbstractFactory.cs",
+              "DocumentIndex": 9,
+              "Title": "IFactory.cs",
+              "DocumentMoniker": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Application\\Factory\\IFactory.cs",
+              "RelativeDocumentMoniker": "Fighters\\Application\\Factory\\IFactory.cs",
+              "ToolTip": "C:\\MRT47\\TL_practice\\homeworks\\Fighters\\Fighters\\Application\\Factory\\IFactory.cs",
+              "RelativeToolTip": "Fighters\\Application\\Factory\\IFactory.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-23T22:00:05.546Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-23T22:00:05.546Z"
             }
           ]
         },
