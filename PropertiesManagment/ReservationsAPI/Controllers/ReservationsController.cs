@@ -2,6 +2,7 @@
 using Application.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using ReservationsAPI.Contracts;
+using ReservationsAPI.Controllers.Mappers;
 
 namespace ReservationsAPI.Controllers;
 
@@ -33,7 +34,7 @@ public class ReservationsController : ControllerBase
                 guests,
                 maxDailyPrice ) );
 
-            IReadOnlyList<PropertyWithRoomTypesResponse> availableReservationsResponse = Mappers.Mappers.Map( availableReservations );
+            IReadOnlyList<PropertyWithRoomTypesResponse> availableReservationsResponse = availableReservations.Map();
 
             return Ok( availableReservationsResponse );
         }
@@ -82,7 +83,7 @@ public class ReservationsController : ControllerBase
             guestName,
             guestPhoneNumber ) );
 
-        IReadOnlyList<ReservationResponse> reservationsResponse = Mappers.Mappers.Map( reservations );
+        IReadOnlyList<ReservationResponse> reservationsResponse = reservations.Map();
 
         return Ok( reservationsResponse );
     }
@@ -96,7 +97,7 @@ public class ReservationsController : ControllerBase
             return NotFound();
         }
 
-        ReservationResponse reservationResponse = Mappers.Mappers.Map( reservation );
+        ReservationResponse reservationResponse = reservation.Map();
 
         return Ok( reservationResponse );
     }

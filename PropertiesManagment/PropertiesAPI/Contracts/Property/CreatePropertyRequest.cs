@@ -1,11 +1,9 @@
 ﻿namespace PropertiesAPI.Contracts.Property;
 
-public record CreatePropertyRequest
-{
-    public string Name { get; set; }
-    public string Country { get; set; }
-    public string City { get; set; }
-    public string Address { get; set; }
-    public decimal Latitude { get; set; }
-    public decimal Longitude { get; set; }
-}
+public record CreatePropertyRequest(
+    string Name,
+    string Country,
+    string City,
+    string Address,
+    decimal Latitude,
+    decimal Longitude );

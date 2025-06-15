@@ -2,6 +2,7 @@
 using Application.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using PropertiesAPI.Contracts.Property;
+using PropertiesAPI.Controllers.Mappers;
 
 namespace PropertiesAPI.Controllers;
 
@@ -21,7 +22,7 @@ public class PropertiesController : ControllerBase
     {
         IReadOnlyList<PropertyDto> properties = await _propertiesService.GetAllProperties();
 
-        IReadOnlyList<PropertyResponse> propertiesResponse = Mappers.Mappers.Map( properties );
+        IReadOnlyList<PropertyResponse> propertiesResponse = properties.Map();
 
         return Ok( propertiesResponse );
     }
@@ -35,7 +36,7 @@ public class PropertiesController : ControllerBase
             return NotFound();
         }
 
-        PropertyResponse propertyResponse = Mappers.Mappers.Map( property );
+        PropertyResponse propertyResponse = property.Map();
 
         return Ok( propertyResponse );
     }

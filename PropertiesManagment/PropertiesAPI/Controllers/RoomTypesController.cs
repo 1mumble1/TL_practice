@@ -3,6 +3,7 @@ using Application.Contracts;
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using PropertiesAPI.Contracts.RoomType;
+using PropertiesAPI.Controllers.Mappers;
 
 namespace PropertiesAPI.Controllers;
 
@@ -24,7 +25,7 @@ public class RoomTypesController : ControllerBase
         {
             IReadOnlyList<RoomTypeDto> roomTypes = await _roomTypesService.GetAllRoomTypesByPropertyId( propertyId );
 
-            IReadOnlyList<RoomTypeResponse> roomTypesResponse = Mappers.Mappers.Map( roomTypes );
+            IReadOnlyList<RoomTypeResponse> roomTypesResponse = roomTypes.Map();
 
             return Ok( roomTypesResponse );
         }
@@ -44,7 +45,7 @@ public class RoomTypesController : ControllerBase
             return NotFound();
         }
 
-        RoomTypeResponse roomTypeResonse = Mappers.Mappers.Map( roomType );
+        RoomTypeResponse roomTypeResonse = roomType.Map();
 
         return Ok( roomTypeResonse );
     }
