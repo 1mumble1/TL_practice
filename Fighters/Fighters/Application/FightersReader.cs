@@ -8,7 +8,12 @@ public class FightersReader
     private const string AddFighter = "add-fighter";
     private const string End = "end";
     private readonly List<IFighter> _fighters = [];
-    private readonly AbstractFactory _factory = new FightersFactory();
+    private readonly IFactory _factory;
+
+    public FightersReader( IFactory factory )
+    {
+        _factory = factory;
+    }
 
     public IReadOnlyList<IFighter> ReadFighters()
     {
