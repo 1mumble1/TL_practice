@@ -1,21 +1,21 @@
 import './App.css';
-import { type Review } from './types/Review';
+import { type Review } from './types/types';
 import { useState } from 'react';
 import ReviewForm from './components/ReviewForm/ReviewForm';
+import Reviews from './components/Reviews/Reviews';
 
 function App() {
   const [reviews, setReviews] = useState<Review[]>([]);
 
-  const addReview = (review: Review) => {
-    const updatedReviews = [...reviews, review];
-    setReviews(updatedReviews);
+  const handleSumbitForm = ({name, comment, rating}: Review) => {
+    setReviews([...reviews, {name , comment, rating}]);
   }
 
   return (
-    <div className='content'>
-      <ReviewForm onAddReview={addReview} />
-      <Reviews reviews={reviews} />
-    </div>
+    <>
+      <ReviewForm onSubmit={handleSumbitForm}/>
+      {reviews && (<Reviews reviews={reviews} />)}
+    </>
   );
 }
 

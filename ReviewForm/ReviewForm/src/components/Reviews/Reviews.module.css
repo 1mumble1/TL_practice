@@ -1,0 +1,60 @@
+.container {
+    margin: 0 auto;
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    max-width: 570px;
+    min-height: 181px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.avatarContainer {
+    flex-shrink: 0;
+}
+
+.avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.ratingContainer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.name {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #404040;
+    margin: 0;
+}
+
+.comment {
+    white-space: pre-line;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: #404040;
+    margin: 0;
+    text-align: left;
+    padding-right: 50px;
+}
+
+.rating {
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    color: #404040;
+    margin: 0;
+    font-weight: 500;
+}
