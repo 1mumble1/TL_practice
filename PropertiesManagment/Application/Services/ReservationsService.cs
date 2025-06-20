@@ -72,31 +72,24 @@ public class ReservationsService : IReservationsService
         string guestName,
         string guestPhoneNumber )
     {
-        if ( !await _reservationsRepository.ExistsProperty( propertyPublicId ) )
-        {
-            throw new ArgumentException( $"Cannot found property with id {propertyPublicId}" );
-        }
+        Property? property = await _reservationsRepository.GetPropertyByPublicId( propertyPublicId )
+            ?? throw new ArgumentException( $"Cannot found property with id {propertyPublicId}" );
 
-        if ( !await _reservationsRepository.ExistsRoomType( roomTypePublicId ) )
-        {
-            throw new ArgumentException( $"Cannot found room type with id {roomTypePublicId}" );
-        }
-
-        int propertyId = await _reservationsRepository.GetPropertyIdByPublicId( propertyPublicId );
-        int roomTypeId = await _reservationsRepository.GetRoomTypeIdByPublicId( roomTypePublicId );
+        RoomType? roomType = await _reservationsRepository.GetRoomTypeByPublicId( roomTypePublicId )
+            ?? throw new ArgumentException( $"Cannot found room type with id {roomTypePublicId}" );
 
         if ( !( await _reservationsRepository
                 .GetAvailablePropertyIds( arrivalDate, departureDate ) )
-                .Contains( propertyId ) ||
+                .Contains( property.Id ) ||
             !( await _reservationsRepository
                 .GetAvailableRoomTypesWithCounts( arrivalDate, departureDate ) )
-                .ContainsKey( roomTypeId ) )
+                .ContainsKey( roomType.Id ) )
         {
             throw new InvalidOperationException( "The reservation on this dates already exists" );
         }
 
-        string currency = await _reservationsRepository.GetRoomTypeCurrency( roomTypeId );
-        decimal dailyPrice = await _reservationsRepository.GetRoomTypeDailyPrice( roomTypeId );
+        string currency = roomType.Currency;
+        decimal dailyPrice = roomType.DailyPrice;
         decimal total = CalculateTotal(
             dailyPrice,
             arrivalDate,
@@ -105,8 +98,8 @@ public class ReservationsService : IReservationsService
             departureTime );
 
         Reservation reservation = new(
-            propertyId,
-            roomTypeId,
+            property.Id,
+            roomType.Id,
             arrivalDate,
             departureDate,
             arrivalTime,

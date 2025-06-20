@@ -208,53 +208,13 @@ public class ReservationsRepository : IReservationsRepository
             .ExecuteDeleteAsync();
     }
 
-    public async Task<bool> ExistsProperty( Guid propertyId )
+    public async Task<Property?> GetPropertyByPublicId( Guid propertyPublicId )
     {
-        return await _dbContext.Properties.FirstOrDefaultAsync( p => p.PublicId == propertyId ) is not null;
+        return await _dbContext.Properties.FirstOrDefaultAsync( p => p.PublicId == propertyPublicId );
     }
 
-    public async Task<bool> ExistsRoomType( Guid roomTypeId )
+    public async Task<RoomType?> GetRoomTypeByPublicId( Guid roomTypePublicId )
     {
-        return await _dbContext.RoomTypes.FirstOrDefaultAsync( rt => rt.PublicId == roomTypeId ) is not null;
-    }
-
-    public async Task<int> GetPropertyIdByPublicId( Guid propertyPublicId )
-    {
-        Property? property = await _dbContext.Properties.FirstOrDefaultAsync( p => p.PublicId == propertyPublicId );
-        if ( property is null )
-        {
-            throw new InvalidOperationException( $"Not found property with id: {propertyPublicId}" );
-        }
-        return property.Id;
-    }
-
-    public async Task<int> GetRoomTypeIdByPublicId( Guid roomTypePublicId )
-    {
-        RoomType? roomType = await _dbContext.RoomTypes.FirstOrDefaultAsync( rt => rt.PublicId == roomTypePublicId );
-        if ( roomType is null )
-        {
-            throw new InvalidOperationException( $"Not found room type with id: {roomTypePublicId}" );
-        }
-        return roomType.Id;
-    }
-
-    public async Task<string> GetRoomTypeCurrency( int roomTypeId )
-    {
-        RoomType? roomType = await _dbContext.RoomTypes.FirstOrDefaultAsync( rt => rt.Id == roomTypeId );
-        if ( roomType is null )
-        {
-            throw new InvalidOperationException( $"Not found room type with id: {roomTypeId}" );
-        }
-        return roomType.Currency;
-    }
-
-    public async Task<decimal> GetRoomTypeDailyPrice( int roomTypeId )
-    {
-        RoomType? roomType = await _dbContext.RoomTypes.FirstOrDefaultAsync( rt => rt.Id == roomTypeId );
-        if ( roomType is null )
-        {
-            throw new InvalidOperationException( $"Not found room type with id: {roomTypeId}" );
-        }
-        return roomType.DailyPrice;
+        return await _dbContext.RoomTypes.FirstOrDefaultAsync( rt => rt.PublicId == roomTypePublicId );
     }
 }
