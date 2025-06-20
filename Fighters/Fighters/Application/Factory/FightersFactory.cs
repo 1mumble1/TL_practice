@@ -12,7 +12,7 @@ public class FightersFactory : IFactory
     {
         Console.WriteLine( "Введите имя для бойца:" );
         string? name;
-        while ( ( name = Console.ReadLine() ) is null )
+        while ( string.IsNullOrWhiteSpace( name = Console.ReadLine() ) )
         {
             Console.WriteLine( "Невалидное имя для бойца, попробуйте еще раз" );
         }

@@ -53,6 +53,11 @@ public class Fighter : IFighter
 
     public void TakeDamage( int damage )
     {
+        if ( damage <= 0 )
+        {
+            return;
+        }
+
         CurrentHealth -= Math.Max( ( damage - CurrentArmor ), 0 );
         CurrentArmor -= damage / 5;
         if ( CurrentArmor < 0 )
