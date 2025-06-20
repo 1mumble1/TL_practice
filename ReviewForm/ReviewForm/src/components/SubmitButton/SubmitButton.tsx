@@ -1,5 +1,5 @@
 import type React from 'react';
-import classes from './SubmitButton.module.css';
+import styles from './SubmitButton.module.css';
 
 interface SubmitButtonProps {
   isDisabled: boolean;
@@ -7,10 +7,12 @@ interface SubmitButtonProps {
 
 const SubmitButton: React.FC<SubmitButtonProps> = ({ isDisabled }) => {
   return (
-    <button className={classes.button} type='submit' disabled={isDisabled}>
-      Отправить
-    </button>
+    <div className={styles.buttonContainer}>
+      <button className={styles.button} type='submit' disabled={isDisabled}>
+        Отправить
+      </button>
+    </div>
   );
-}
+};
 
 export default SubmitButton;

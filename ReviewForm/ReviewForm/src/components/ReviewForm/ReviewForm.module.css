@@ -19,58 +19,6 @@
   font-family: 'Inter', sans-serif;
   margin-top: 25px;
   text-align: left;
-  font-weight: 500px;
-  font-size: 24px;
-  letter-spacing: 0.015rem;
-}
-
-.nameContainer {
-  position: relative;
-  margin-top: 40px;
-  display: flex;
-  flex-direction: column;
-}
-
-.nameContainer label {
-  position: absolute;
-  top: -7px;
-  left: 7px;
-  background: #ffffff;
-  font-size: 10px;
-  color: #dcdcdc;
-}
-
-.nameContainer input {
-  color: #404040;
-  padding-left: 15px;
-  padding-top: 6px;
-  padding-bottom: 7px;
-  border-radius: 5px;
-  border: 1px solid #dcdcdc
-}
-
-.commentContainer {
-  position: relative;
-  margin-top: 27px;
-  display: flex;
-  flex-direction: column;
-}
-
-.commentContainer textarea {
-  resize: none;
-  min-height: 113px;
-  font-family: 'Inter', sans-serif;
-  color: #000000;
-  padding-left: 15px;
-  padding-top: 10px;
-  padding-bottom: 85px;
-  border-radius: 5px;
-  border: 1px solid #dcdcdc;
-  white-space: pre-wrap;
-}
-
-.buttonContainer {
-  display: flex;
-  justify-content: end;
-  margin-top: 20px;
+  font-weight: 500;
+  font-size: 30px;  
 }

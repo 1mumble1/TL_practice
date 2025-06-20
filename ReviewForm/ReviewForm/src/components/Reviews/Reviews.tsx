@@ -4,8 +4,8 @@ import styles from './Reviews.module.css';
 import Avatar from '../../../public/twemoji_angry-face.png'
 
 interface ReviewsProps {
-    reviews: Review[];
-}
+  reviews: Review[];
+};
 
 const Reviews: React.FC<ReviewsProps> = ({ reviews }) => {
 
@@ -33,6 +33,6 @@ const Reviews: React.FC<ReviewsProps> = ({ reviews }) => {
       })}
     </>
   );     
-}
+};
 
 export default Reviews;

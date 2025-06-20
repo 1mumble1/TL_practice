@@ -1,0 +1,24 @@
+.nameContainer {
+  position: relative;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.nameContainer label {
+  position: absolute;
+  top: -7px;
+  left: 7px;
+  background: #ffffff;
+  font-size: 10px;
+  color: #dcdcdc;
+}
+
+.nameContainer input {
+  color: #404040;
+  padding-left: 15px;
+  padding-top: 6px;
+  padding-bottom: 7px;
+  border-radius: 5px;
+  border: 1px solid #dcdcdc
+}

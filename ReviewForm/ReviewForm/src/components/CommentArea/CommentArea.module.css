@@ -1,0 +1,19 @@
+.commentContainer {
+  position: relative;
+  margin-top: 27px;
+  display: flex;
+  flex-direction: column;
+}
+
+.commentContainer textarea {
+  resize: none;
+  min-height: 113px;
+  font-family: 'Inter', sans-serif;
+  color: #000000;
+  padding-left: 15px;
+  padding-top: 10px;
+  padding-bottom: 85px;
+  border-radius: 5px;
+  border: 1px solid #dcdcdc;
+  white-space: pre-wrap;
+}
